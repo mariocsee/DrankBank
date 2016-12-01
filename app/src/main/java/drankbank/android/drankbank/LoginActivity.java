@@ -8,10 +8,22 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Created by Veronica on 11/21/16.
  *
  * Handles activity from login/registration screen
+ * Stores user in Firebase
  */
 
 public class LoginActivity extends AppCompatActivity {
@@ -34,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
+    /*
     @OnClick(R.id.btnLogin)
     void loginClick() {
         if (!isFormValid()){
@@ -60,9 +73,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    /*
+
     Registers user so long as id and password aren't empty
-     */
+
     @OnClick(R.id.btnRegister)
     void registerClick() {
         if (!isFormValid()) {
@@ -98,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /*
     Checks to see if id and password fields aren't empty, else show an error method
-     */
+     *
     private boolean isFormValid() {
         if (TextUtils.isEmpty(etEmail.getText().toString())) {
             etEmail.setError("Required");
@@ -113,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /*
     Splits username before the "@" symbol as the username
-     */
+     *
     private String usernameFromEmail(String email) {
         if (email.contains("@")) {
             return email.split("@")[0];
@@ -121,4 +134,5 @@ public class LoginActivity extends AppCompatActivity {
             return email;
         }
     }
+    */
 }

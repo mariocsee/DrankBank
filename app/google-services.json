@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "284286840714",
+    "firebase_url": "https://drank-bank.firebaseio.com",
+    "project_id": "drank-bank",
+    "storage_bucket": "drank-bank.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284286840714:android:02ca515d6d0ee9cb",
+        "android_client_info": {
+          "package_name": "drankbank.android.drankbank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284286840714-nh23ttntjcq9g5mp00ppfjkmgflb9ndn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDErLMKZMTCshJQVK7zWrvqceGithPt59I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

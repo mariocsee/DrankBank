@@ -1,8 +1,12 @@
 package drankbank.android.drankbank;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,10 +17,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import drankbank.android.drankbank.adapter.EntryAdapter;
+import drankbank.android.drankbank.model.Entry;
+import drankbank.android.drankbank.touch.EntryListTouchHelper;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
+    private EntryAdapter entryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +36,11 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         setUpToolBar();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(MainActivity.this, CreateEntryActivity.class));
             }
         });
 
@@ -56,6 +67,30 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    /*
+    Set up recycler view of today's drinks
+     */
+    private void setUpRecyclerView() {
+        // ****SugarORM list of drinks instead?
+        List<Entry> entryList = new ArrayList<>();
+
+        entryAdapter = new EntryAdapter(entryList, this);
+
+        RecyclerView recyclerEntry = (RecyclerView) findViewById(
+                R.id.recyclerEntry);
+        recyclerEntry.setLayoutManager(new LinearLayoutManager(this));
+        recyclerEntry.setAdapter(entryAdapter);
+
+        EntryListTouchHelper touchHelperCallback = new EntryListTouchHelper(
+                entryAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(
+                touchHelperCallback);
+        touchHelper.attachToRecyclerView(recyclerEntry);
+    }
+
+    /*
+    Handles when back button is pressed
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -91,12 +126,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         switch (item.getItemId()) {
-            case R.id.nav_camera:
+            case R.id.nav_list:
                 //handle camera action
                 break;
-            case R.id.nav_gallery:
+            case R.id.nav_favorites:
                 break;
-            case R.id.nav_manage:
+            case R.id.nav_settings:
                 break;
             case R.id.nav_share:
                 break;

@@ -31,7 +31,7 @@ public class CreateEntryActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.btnSend)
+    @OnClick(R.id.btnAdd)
     void sendClick() {
         if (!isFormValid()) {
             return;

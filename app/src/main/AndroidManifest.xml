@@ -21,6 +21,9 @@
         <activity android:name=".LoginActivity"
             android:label="LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".CreateEntryActivity"
+            android:label="CreateEntryActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

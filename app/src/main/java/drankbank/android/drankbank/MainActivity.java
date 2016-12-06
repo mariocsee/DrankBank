@@ -3,7 +3,6 @@ package drankbank.android.drankbank;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -11,10 +10,8 @@ import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import drankbank.android.drankbank.adapter.EntryAdapter;
-import drankbank.android.drankbank.model.Entry;
+import drankbank.android.drankbank.data.Entry;
 import drankbank.android.drankbank.touch.EntryListTouchHelper;
 
 public class MainActivity extends AppCompatActivity
@@ -136,6 +133,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_settings:
                 break;
             case R.id.nav_share:
+                startActivity(new Intent(this, SearchActivity.class));
                 break;
             case R.id.nav_logout:
                 // logs out user

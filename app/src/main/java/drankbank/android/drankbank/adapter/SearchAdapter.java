@@ -5,28 +5,33 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
 import drankbank.android.drankbank.R;
-import drankbank.android.drankbank.data.Entry;
+import drankbank.android.drankbank.data.Drink;
 
 /**
- * Created by Veronica on 12/1/16.
- * Adapter to handle list of today's drinks.
+ * Created by Veronica on 12/5/16.
  */
 
-public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> {
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
+    private LayoutInflater layoutInflater;
+    private List<Drink> listDrink;
     /*
     Creates view for a single drink display
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView tvName;
+        private TextView tvDescrp;
+
         public ViewHolder(View itemView) {
             super(itemView);
         }
     }
 
-    private List<Entry> entryList;
+    private List<Drink> searchList;
     private Context context;
     private int lastPosition = -1;
 
@@ -38,8 +43,9 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
         return vh;
     }
 
-    public EntryAdapter(List<Entry> entryList, Context context) {
-        this.entryList = entryList;
+    public SearchAdapter(List<Drink> drinkList, Context context) {
+        layoutInflater =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.searchList = drinkList;
         this.context = context;
     }
 
@@ -50,23 +56,23 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return entryList.size();
+        return searchList.size();
     }
 
     /*
     Removes entry from display listB
     */
-    public void removeEntry(int position) {
+    public void removeDrink(int position) {
         // remove it from the list
-        entryList.remove(position);
+        searchList.remove(position);
         notifyDataSetChanged();
     }
 
     /*
     Adds entry to display list
     */
-    public void addEntry(Entry e) {
-        entryList.add(e);
+    public void addDrink(Drink d) {
+        searchList.add(d);
         notifyDataSetChanged();
     }
 }

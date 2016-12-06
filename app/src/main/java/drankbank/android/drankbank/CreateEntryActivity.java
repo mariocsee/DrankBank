@@ -46,6 +46,7 @@ public class CreateEntryActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Post created", Toast.LENGTH_SHORT).show();
         */
+
         finish();
     }
 

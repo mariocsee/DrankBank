@@ -25,7 +25,6 @@ import drankbank.android.drankbank.touch.EntryListTouchHelper;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
     private DrawerLayout drawerLayout;
     private EntryAdapter entryAdapter;
 
@@ -34,6 +33,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpToolBar();
+        setUpRecyclerView();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity
     Set up recycler view of today's drinks
      */
     private void setUpRecyclerView() {
-        // ****SugarORM list of drinks instead?
         List<Entry> entryList = new ArrayList<>();
 
         entryAdapter = new EntryAdapter(entryList, this);

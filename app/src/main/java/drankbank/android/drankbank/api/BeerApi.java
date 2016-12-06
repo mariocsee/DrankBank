@@ -10,9 +10,8 @@ import retrofit2.http.Query;
  *
  * API Key: afd6029fc44f55b5425c752789bbb896
  *
- * Example call: http://api.brewerydb.com/v2/search?key=MYKEY&name=BeerName
- *
- * http://api.brewerydb.com/v2/?key=abcdef
+ * Example call: http://api.brewerydb.com/v2/search?key=MYKEY&q=BeerName&type=Beer
+ * http://api.brewerydb.com/v2/search?key=afd6029fc44f55b5425c752789bbb896&q=Boy&type=beer
  */
 
 public interface BeerApi {

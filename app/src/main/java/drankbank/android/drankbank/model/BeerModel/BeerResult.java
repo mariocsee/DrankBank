@@ -63,15 +63,18 @@ public class BeerResult {
     @SerializedName("status")
     @Expose
     public String status;
-    @SerializedName("numberOfPages")
-    @Expose
-    public Integer numberOfPages;
-    @SerializedName("data")
-    @Expose
-    public List<Datum> data;
     @SerializedName("currentPage")
     @Expose
-    public Integer currentPage;
+    private Integer currentPage;
+    @SerializedName("numberOfPages")
+    @Expose
+    private Integer numberOfPages;
+    @SerializedName("totalResults")
+    @Expose
+    private Integer totalResults;
+    @SerializedName("data")
+    @Expose
+    private List<Datum> data;
 
     public String getStatus() {
         return status;

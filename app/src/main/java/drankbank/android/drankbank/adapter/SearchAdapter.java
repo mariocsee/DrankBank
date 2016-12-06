@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.BindView;
 import drankbank.android.drankbank.R;
 import drankbank.android.drankbank.data.Drink;
 
@@ -17,8 +18,6 @@ import drankbank.android.drankbank.data.Drink;
  */
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
-    private LayoutInflater layoutInflater;
-    private List<Drink> listDrink;
     /*
     Creates view for a single drink display
      */
@@ -28,30 +27,38 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
         public ViewHolder(View itemView) {
             super(itemView);
+            tvName = (TextView) itemView.findViewById(R.id.tvName);
+            tvDescrp = (TextView) itemView.findViewById(R.id.tvDescrp);
+
+            itemView.setClickable(true);
         }
     }
 
+    private LayoutInflater layoutInflater;
     private List<Drink> searchList;
     private Context context;
-    private int lastPosition = -1;
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_entry, parent, false);
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
-    }
 
     public SearchAdapter(List<Drink> drinkList, Context context) {
-        layoutInflater =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.searchList = drinkList;
         this.context = context;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.row_search, parent, false);
+        ViewHolder vh = new ViewHolder(v);
+        return vh;
+    }
 
+    /*
+    Sets information to display on view from associated search data
+    */
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.tvName.setText(searchList.get(position).getName());
+        holder.tvDescrp.setText(searchList.get(position).getName());
     }
 
     @Override

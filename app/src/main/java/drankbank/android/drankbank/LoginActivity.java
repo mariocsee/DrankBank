@@ -56,6 +56,7 @@ public class LoginActivity extends BaseActivity {
             //does nothing it form is not valid
             return;
         }
+        showProgressDialog();
         //else, uses authenticator's method to allow them to sign in
         firebaseAuth.signInWithEmailAndPassword (
                 etEmail.getText().toString(),
@@ -67,8 +68,10 @@ public class LoginActivity extends BaseActivity {
                 if (task.isSuccessful()) {
                     //Open new Activity
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    hideProgressDialog();
                     finish();
                 } else {
+                    hideProgressDialog();
                     Toast.makeText(LoginActivity.this, task.getException().getMessage(),
                             Toast.LENGTH_SHORT).show();
                     Log.d("TAG_LOGIN", "Error: " + task.getException().getMessage());
@@ -84,9 +87,7 @@ public class LoginActivity extends BaseActivity {
         if (!isFormValid()) {
             return;
         }
-
         showProgressDialog();
-
         firebaseAuth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

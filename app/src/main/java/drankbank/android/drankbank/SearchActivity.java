@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import drankbank.android.drankbank.api.BeerApi;
 import drankbank.android.drankbank.data.Drink;
 import drankbank.android.drankbank.model.BeerModel.BeerResult;
 import drankbank.android.drankbank.model.BeerModel.Datum;
+import drankbank.android.drankbank.touch.EntryListTouchHelper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,12 +31,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Veronica on 12/5/16.
- *
+ * <p>
  * Tutorial: https://inducesmile.com/android/android-how-to-add-search-widget-and-searchview-implementation-in-android-ui/
  * RETRO Tutorial: https://medium.com/@ocittwo/android-searchview-recyclerview-retrofit-56b588331e19#.1yz6ca5q9
  */
 
-public class SearchActivity extends BaseActivity{
+public class SearchActivity extends BaseActivity {
+    public static final String DRINK_DATA = "DRINK_ DATA";
+
     final public String apiid = "afd6029fc44f55b5425c752789bbb896";
     private BeerApi beerApi;
     private SearchAdapter searchAdapter;
@@ -54,12 +58,6 @@ public class SearchActivity extends BaseActivity{
         recyclerSearch = (RecyclerView) findViewById(
                 R.id.recyclerSearch);
         recyclerSearch.setLayoutManager(new LinearLayoutManager(this));
-        /*EntryListTouchHelper touchHelperCallback = new EntryListTouchHelper(
-                entryAdapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(
-                touchHelperCallback);
-        touchHelper.attachToRecyclerView(recyclerSearch);*/
-
         handleIntent(getIntent());
     }
 
@@ -133,5 +131,17 @@ public class SearchActivity extends BaseActivity{
                 Log.d("TAG_QUERY", "Call failed: " + t);
             }
         });
+    }
+
+    /*
+    Shows information associated with item row
+     */
+    public void showDrinkActivity(int position) {
+        Drink d = searchAdapter.getDrink(position);
+        Log.d("TAG_DRINK", "Bundling drink: " + d.getName());
+        Intent intentShow = new Intent(this, ShowDrinkActivity.class);
+        intentShow.putExtra(DRINK_DATA, d);
+        intentShow.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intentShow);
     }
 }

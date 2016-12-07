@@ -1,5 +1,9 @@
 package drankbank.android.drankbank.data;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 import drankbank.android.drankbank.model.BeerModel.Datum;
 
 /**
@@ -8,7 +12,7 @@ import drankbank.android.drankbank.model.BeerModel.Datum;
  * Class to hold results from
  */
 
-public class Drink {
+public class Drink implements Serializable {
     private String name;
     private String type;
     private String descrp;
@@ -18,6 +22,7 @@ public class Drink {
         this.descrp = descrp;
     }
 
+    // Constructor from beer API
     public Drink(Datum data) {
         this.name = data.getName();
         this.descrp = data.getDescription();

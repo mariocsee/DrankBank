@@ -38,7 +38,6 @@ public class BaseActivity extends AppCompatActivity {
         return FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
     }
 
-
     public String getUserEmail() {
         return FirebaseAuth.getInstance().getCurrentUser().getEmail();
     }

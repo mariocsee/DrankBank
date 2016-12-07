@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import drankbank.android.drankbank.R;
-import drankbank.android.drankbank.model.Entry;
+import drankbank.android.drankbank.data.Entry;
 
 /**
  * Created by Veronica on 12/1/16.
@@ -54,24 +54,19 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     }
 
     /*
-    Removes entry from display list and local DB
+    Removes entry from display listB
     */
     public void removeEntry(int position) {
-        // remove it from SugarORM DB
-        // entryList.get(position).delete();
         // remove it from the list
         entryList.remove(position);
         notifyDataSetChanged();
     }
 
     /*
-    Adds weather to display list and local DB
+    Adds entry to display list
     */
     public void addEntry(Entry e) {
-        // Saves to SugarORM DB
-        //e.save();
         entryList.add(e);
         notifyDataSetChanged();
     }
-
 }

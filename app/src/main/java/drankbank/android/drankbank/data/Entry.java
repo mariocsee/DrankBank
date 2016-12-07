@@ -1,4 +1,4 @@
-package drankbank.android.drankbank.model;
+package drankbank.android.drankbank.data;
 
 import com.google.firebase.database.Exclude;
 

@@ -60,7 +60,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvName.setText(searchList.get(position).getName());
-        holder.tvDescrp.setText(searchList.get(position).getName());
+        holder.tvDescrp.setText(searchList.get(position).getType());
         // allows whole row to be clicked
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,4 +1,4 @@
-package drankbank.android.drankbank.model.BeerModel;
+package drankbank.android.drankbank.model.api.BeerModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

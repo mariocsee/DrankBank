@@ -1,6 +1,6 @@
 package drankbank.android.drankbank.api;
 
-import drankbank.android.drankbank.model.BeerModel.BeerResult;
+import drankbank.android.drankbank.model.api.BeerModel.BeerResult;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

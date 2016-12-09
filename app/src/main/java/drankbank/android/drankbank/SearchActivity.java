@@ -7,22 +7,19 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import drankbank.android.drankbank.adapter.SearchAdapter;
 import drankbank.android.drankbank.api.BeerApi;
+import drankbank.android.drankbank.api.CocktailApi;
 import drankbank.android.drankbank.data.Drink;
 import drankbank.android.drankbank.model.BeerModel.BeerResult;
 import drankbank.android.drankbank.model.BeerModel.Datum;
-import drankbank.android.drankbank.touch.EntryListTouchHelper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Veronica on 12/5/16.
- * <p>
+ * <p/>
  * Tutorial: https://inducesmile.com/android/android-how-to-add-search-widget-and-searchview-implementation-in-android-ui/
  * RETRO Tutorial: https://medium.com/@ocittwo/android-searchview-recyclerview-retrofit-56b588331e19#.1yz6ca5q9
  */
@@ -41,6 +38,7 @@ public class SearchActivity extends BaseActivity {
 
     final public String apiid = "afd6029fc44f55b5425c752789bbb896";
     private BeerApi beerApi;
+    private CocktailApi cocktailApi;
     private SearchAdapter searchAdapter;
     private RecyclerView recyclerSearch;
 
@@ -54,6 +52,13 @@ public class SearchActivity extends BaseActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         beerApi = retrofit.create(BeerApi.class);
+
+        Retrofit retrofitCocktail = new Retrofit.Builder()
+                .baseUrl("http://www.thecocktaildb.com/api/json/v1/1/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        cocktailApi = retrofit.create(CocktailApi.class);
+
 
         recyclerSearch = (RecyclerView) findViewById(
                 R.id.recyclerSearch);
@@ -115,13 +120,13 @@ public class SearchActivity extends BaseActivity {
                     for (Datum result : response.body().getData()) {
                         Log.d("TAG_QUERY", "Successful call: " + result.getName());
                         // new drink from result
-                        Drink d = new Drink(result);
+                        //Drink d = new Drink(result);
                         // add to adapter
-                        searchAdapter.addDrink(d);
+                        //searchAdapter.addDrink(d);
                         Log.d("TAG_QUERY", "Successfully added: " + result.getName());
                     }
                 } else {
-                    // Make a toast?
+                    // Make a toast saying no response?
                 }
                 recyclerSearch.setAdapter(searchAdapter);
             }

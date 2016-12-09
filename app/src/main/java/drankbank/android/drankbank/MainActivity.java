@@ -20,13 +20,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import drankbank.android.drankbank.adapter.EntryAdapter;
+import drankbank.android.drankbank.api.BeerApi;
+import drankbank.android.drankbank.api.CocktailApi;
 import drankbank.android.drankbank.data.Entry;
 import drankbank.android.drankbank.touch.EntryListTouchHelper;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
     private EntryAdapter entryAdapter;
+
+    private BeerApi beerApi;
+    private CocktailApi cocktailApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,15 @@ public class MainActivity extends AppCompatActivity
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        Retrofit retrofitCocktail = new Retrofit.Builder()
+                .baseUrl("http://www.thecocktaildb.com/api/json/v1/1/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        cocktailApi = retrofitCocktail.create(CocktailApi.class);
+
+        CallcocktailApi.searchCocktailName("Margarita");
     }
 
     /*

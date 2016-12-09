@@ -1,6 +1,6 @@
 package drankbank.android.drankbank.data;
 
-import android.os.Parcelable;
+import android.util.Log;
 
 import java.io.Serializable;
 
@@ -24,9 +24,23 @@ public class Drink implements Serializable {
 
     // Constructor from beer API
     public Drink(Datum data) {
-        this.name = data.getName();
-        this.descrp = data.getDescription();
-        this.type = data.getStyle().getCategory().getName();
+        if (data.getName() != null) {
+            this.name = data.getName();
+
+        } else {
+            this.name = "No name available";
+        }
+        if (data.getDescription() != null) {
+            this.descrp = data.getDescription();
+        } else {
+            this.descrp = "No description available";
+        }
+        try {
+            this.type = data.getStyle().getName();
+        } catch (NullPointerException e) {
+            Log.d("TAG_QUERY", e.getMessage());
+            this.type = "No type available";
+        }
     }
 
     public String getName() {

@@ -3,16 +3,17 @@ package drankbank.android.drankbank;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -23,7 +24,9 @@ import drankbank.android.drankbank.adapter.EntryAdapter;
 import drankbank.android.drankbank.api.BeerApi;
 import drankbank.android.drankbank.api.CocktailApi;
 import drankbank.android.drankbank.data.Entry;
+import drankbank.android.drankbank.model.CocktailModel.CocktailResult;
 import drankbank.android.drankbank.touch.EntryListTouchHelper;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -61,7 +64,8 @@ public class MainActivity extends AppCompatActivity
                 .build();
         cocktailApi = retrofitCocktail.create(CocktailApi.class);
 
-        CallcocktailApi.searchCocktailName("Margarita");
+        Call<List<CocktailResult>> c = cocktailApi.searchCocktailName("Margarita");
+        Log.d("tag", c.toString());
     }
 
     /*

@@ -5,13 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-<<<<<<< HEAD
-=======
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.View;
->>>>>>> master
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,10 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-<<<<<<< HEAD
 import android.support.v7.widget.helper.ItemTouchHelper;
-=======
->>>>>>> master
 import android.view.MenuItem;
 import android.view.View;
 
@@ -34,7 +24,6 @@ import java.util.List;
 import drankbank.android.drankbank.adapter.EntryAdapter;
 import drankbank.android.drankbank.data.Entry;
 import drankbank.android.drankbank.touch.EntryListTouchHelper;
-import drankbank.android.drankbank.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -87,6 +76,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.action_today_view:
+
+                        break;
                     case R.id.action_card_view:
 
                         break;

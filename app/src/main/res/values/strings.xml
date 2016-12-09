@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">DrankBank</string>
+    <string name="app_name">Drank Bank</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="action_settings">Settings</string>
     <string name="nav_lists">Lists</string>
     <string name="nav_favorites">Favorites</string>
     <string name="nav_settings">Settings</string>
+    <string name="hint_search_drink">Search that drank</string>
+    <string name="txt_beer">beer</string>
 </resources>

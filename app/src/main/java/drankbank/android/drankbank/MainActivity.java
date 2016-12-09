@@ -5,6 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+<<<<<<< HEAD
+=======
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.View;
+>>>>>>> master
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,7 +19,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+<<<<<<< HEAD
 import android.support.v7.widget.helper.ItemTouchHelper;
+=======
+>>>>>>> master
 import android.view.MenuItem;
 import android.view.View;
 
@@ -22,13 +32,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import drankbank.android.drankbank.adapter.EntryAdapter;
-import drankbank.android.drankbank.model.Entry;
+import drankbank.android.drankbank.data.Entry;
 import drankbank.android.drankbank.touch.EntryListTouchHelper;
 import drankbank.android.drankbank.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
     private DrawerLayout drawerLayout;
     private EntryAdapter entryAdapter;
 
@@ -37,6 +46,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpToolBar();
+        setUpRecyclerView();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +109,6 @@ public class MainActivity extends AppCompatActivity
     Set up recycler view of today's drinks
      */
     private void setUpRecyclerView() {
-        // ****SugarORM list of drinks instead?
         List<Entry> entryList = new ArrayList<>();
 
         entryAdapter = new EntryAdapter(entryList, this);
@@ -162,6 +171,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_settings:
                 break;
             case R.id.nav_share:
+                startActivity(new Intent(this, SearchActivity.class));
                 break;
             case R.id.nav_logout:
                 // logs out user

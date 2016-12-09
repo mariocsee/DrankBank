@@ -20,6 +20,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,10 +30,31 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".CreateEntryActivity"
-            android:label="CreateEntryActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CreateEntryActivity"
+            android:label="Create Entry"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SearchActivity"
+            android:label="Search"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.AppCompat.Light">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/config_search" />
+        </activity>
+        <activity
+            android:name=".ShowDrinkActivity"
+            android:label="Show Drink"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.AppCompat.Light" />
     </application>
 
 </manifest>

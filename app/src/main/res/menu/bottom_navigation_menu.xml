@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_today_view"
+        android:enabled="true"
+        android:icon="@drawable/ic_today"
+        android:showAsAction="ifRoom"
+        android:title="Today" />
+
+    <item
+        android:id="@+id/action_card_view"
+        android:enabled="true"
+        android:icon="@drawable/ic_local_bar"
+        android:showAsAction="ifRoom"
+        android:title="Cards" />
+
+    <item
+        android:id="@+id/action_search_view"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_search"
+        android:showAsAction="ifRoom"
+        android:title="Search" />
+
+    <item
+        android:id="@+id/action_calendar_view"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_calendar_month"
+        android:showAsAction="ifRoom"
+        android:title="Calendar" />
+
+    <item
+        android:id="@+id/action_graph_view"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_bargraph"
+        android:showAsAction="ifRoom"
+        android:title="Graph" />
+
+</menu>

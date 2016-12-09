@@ -1,7 +1,9 @@
 package drankbank.android.drankbank.data;
 
 import com.google.firebase.database.Exclude;
+import com.orm.SugarRecord;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,9 +14,9 @@ import java.util.Map;
  * Stores data for a diary entry.
  */
 
-public class Entry {
-    private String alcohol;
+public class Entry extends SugarRecord implements Serializable {
     private Date date;
+    private String alcohol;
     private String rating;
     private String body;
 
@@ -22,8 +24,8 @@ public class Entry {
     }
 
     public Entry(String alcohol, Date date, String rating, String body) {
-        this.alcohol = alcohol;
         this.date = date;
+        this.alcohol = alcohol;
         this.rating = rating;
         this.body = body;
     }

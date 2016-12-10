@@ -33,7 +33,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class SearchActivity extends BaseActivity {
-    public static final String DRINK_DATA = "DRINK_ DATA";
+    public static final String KEY_ADD_DRINK = "KEY_ADD_DRINK";
+    public static final String KEY_SHOW_DRINK = "KEY_SHOW_DRINK";
 
     final public String apiid = "afd6029fc44f55b5425c752789bbb896";
     private BeerApi beerApi;
@@ -128,15 +129,33 @@ public class SearchActivity extends BaseActivity {
             }
         });
     }
+    /*
+    Displays different activity based on search start
+     */
+    public void handleDrinkClick(int position) {
+        Drink d = searchAdapter.getDrink(position);
+        if (getCallingActivity() != null) {
+            //
+            if (getCallingActivity().getClassName().equals(CreateEntryActivity.class.getName())) {
+                Intent intentAdd = new Intent();
+                intentAdd.putExtra(KEY_ADD_DRINK, d);
+                setResult(RESULT_OK, intentAdd);
+                finish();
+            }
+        } else {
+            // if activity not started by entry, then show drink details
+            showDrinkActivity(d);
+        }
+    }
+
 
     /*
     Shows information associated with item row
      */
-    public void showDrinkActivity(int position) {
-        Drink d = searchAdapter.getDrink(position);
+    public void showDrinkActivity(Drink d) {
         Log.d("TAG_DRINK", "Bundling drink: " + d.getName());
         Intent intentShow = new Intent(this, ShowDrinkActivity.class);
-        intentShow.putExtra(DRINK_DATA, d);
+        intentShow.putExtra(KEY_SHOW_DRINK, d);
         intentShow.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intentShow);
     }

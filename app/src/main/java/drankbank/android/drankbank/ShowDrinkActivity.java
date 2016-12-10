@@ -31,7 +31,7 @@ public class ShowDrinkActivity extends AppCompatActivity {
         // ***** have try catch block if bundle is null
         try {
             Bundle b = getIntent().getExtras();
-            drink = (Drink) b.getSerializable(SearchActivity.DRINK_DATA);
+            drink = (Drink) b.getSerializable(SearchActivity.KEY_SHOW_DRINK);
 
             tvName.setText(drink.getName());
             tvDescrp.setText(drink.getDescrp());

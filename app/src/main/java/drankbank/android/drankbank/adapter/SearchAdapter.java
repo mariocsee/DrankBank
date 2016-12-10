@@ -66,7 +66,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 // clicking row will start new activity that displays beers
-                ((SearchActivity) context).showDrinkActivity(position);
+                ((SearchActivity) context).handleDrinkClick(position);
             }
         });
     }

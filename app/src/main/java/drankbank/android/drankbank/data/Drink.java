@@ -26,7 +26,6 @@ public class Drink implements Serializable {
     public Drink(Datum data) {
         try {
             this.name = data.getName();
-
         } catch (NullPointerException e){
             Log.d("TAG_ERROR", e.getMessage());
             this.name = "No name available";

@@ -34,9 +34,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CreateEntryActivity"
-            android:label="Create Entry"
+            android:label="Add a drink"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/createDialog" />
         <activity android:name=".TodayActivity"
             android:label="Today Activity"
             android:screenOrientation="portrait"
@@ -58,7 +58,7 @@
             android:name=".ShowDrinkActivity"
             android:label="Show Drink"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.Theme.AppCompat.Light" />
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

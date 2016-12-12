@@ -5,6 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by Veronica on 12/5/16.
  *
@@ -40,6 +44,14 @@ public class BaseActivity extends AppCompatActivity {
 
     public String getUserEmail() {
         return FirebaseAuth.getInstance().getCurrentUser().getEmail();
+    }
+
+    /*
+    Returns date in month/day/year format (ex. 12/25/2016)
+     */
+    public String getCurrDate() {
+        String currDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
+        return currDate;
     }
 }
 

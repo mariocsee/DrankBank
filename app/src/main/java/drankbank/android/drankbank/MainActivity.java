@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
     private void setUpUI() {
         setUpToolBar();
         setUpBottomNav();
-        setUpRecyclerView();
+        //setUpRecyclerView();
         setUpDrawer();
         setUpFab();
     }
@@ -133,11 +133,10 @@ public class MainActivity extends AppCompatActivity
 
     /*
     Set up recycler view of today's drinks
-     */
     private void setUpRecyclerView() {
         List<Entry> entryList = new ArrayList<>();
 
-        entryAdapter = new EntryAdapter(entryList, this);
+        entryAdapter = new EntryAdapter(Context context, this);
 
         RecyclerView recyclerEntry = (RecyclerView) findViewById(
                 R.id.recyclerEntry);
@@ -149,7 +148,7 @@ public class MainActivity extends AppCompatActivity
         ItemTouchHelper touchHelper = new ItemTouchHelper(
                 touchHelperCallback);
         touchHelper.attachToRecyclerView(recyclerEntry);
-    }
+    }*/
 
     /*
     Handles when back button is pressed

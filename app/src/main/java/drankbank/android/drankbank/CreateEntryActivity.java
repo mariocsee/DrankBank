@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -20,7 +21,7 @@ import drankbank.android.drankbank.data.Drink;
  * Created by Veronica on 11/21/16.
  */
 
-public class CreateEntryActivity extends AppCompatActivity {
+public class CreateEntryActivity extends BaseActivity {
     @BindView(R.id.etName)
     EditText etName;
     @BindView (R.id.etDescrp)
@@ -36,35 +37,41 @@ public class CreateEntryActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnTouch(R.id.etName)
+    /*@OnTouch(R.id.etName)
     boolean startSearch() {
         Intent intentShowSearch = new Intent();
         intentShowSearch.setClass(this, SearchActivity.class);
         intentShowSearch.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivityForResult(intentShowSearch, REQUEST_DRINK);
         return true;
-    }
+    }*/
 
+    /*
+    Adds drink to firebase user's database
+     */
     @OnClick(R.id.btnAdd)
     void sendClick() {
-        if (!isFormValid()) {
+        if (!isEntryValid()) {
             return;
         }
 
-
-        /*String key = FirebaseDatabase.getInstance().getReference().child("posts").push().getKey();
-        Entry newPost = new Entry(get(), getUserName(), etTitle.getText().toString(),
-                etBody.getText().toString());
-
-        FirebaseDatabase.getInstance().getReference().child(key).setValue(newPost);
-
-        Toast.makeText(this, "Post created", Toast.LENGTH_SHORT).show();
-        */
+        // pushes drinks to database of current date (MM dd yyyy format)
+        String key = FirebaseDatabase.getInstance().getReference().
+                child(getCurrDate()).push().getKey();
+        Drink d = new Drink(etName.getText().toString(), etDescrp.getText().toString());
+        FirebaseDatabase.getInstance().getReference().
+                child(getCurrDate()).child(key).setValue(d);
+        Log.d("TAG_FIREBASE", "Drink successfully added to: " + getCurrDate());
 
         finish();
     }
 
-    private boolean isFormValid() {
+    @OnClick(R.id.btnCancel)
+    void cancelClick() {
+        finish();
+    }
+
+    private boolean isEntryValid() {
         boolean result = true;
         if (TextUtils.isEmpty(etName.getText().toString())) {
             etName.setError("Required");
@@ -99,7 +106,7 @@ public class CreateEntryActivity extends AppCompatActivity {
                     etName.setText(d.getName());
                     etDescrp.setText(d.getDescrp());
                 } else {
-                    // DO SOMETHING TO SHOW AN ERROR
+                    Toast.makeText(this, "Unable to add result", Toast.LENGTH_LONG).show();
                 }
         }
     }

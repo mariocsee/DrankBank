@@ -143,6 +143,9 @@ public class TodayFragment extends Fragment {
         if (count == 0) {
             tvComment.setText(getString(R.string.drink_count_initial));
         } else if (count <= 3) {
+            if (count == 1) {
+                tvDrinkCount.setText(R.string.drink_count_one);
+            }
             tvComment.setText(getString(R.string.drink_count_good));
         } else if (count <= 6) {
             tvComment.setText(getString(R.string.drink_count_okay));

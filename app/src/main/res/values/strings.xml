@@ -21,6 +21,7 @@
     <string name="query_fail">Query failed</string>
     <string name="not_available">Not available</string>
     <string name="splash">This is Drank Bank</string>
+    <string name="drink_count_one">You\'ve had 1 drink today.</string>
     <string-array name="type_array">
         <item>Beer</item>
         <item>Wine</item>

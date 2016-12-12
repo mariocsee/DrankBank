@@ -9,6 +9,9 @@
     <string name="txt_beer">beer</string>
     <string name="txt_add">Add</string>
     <string name="txt_cancel">Cancel</string>
-    <string name="drink_count_initial">You\'ve had 0 drinks today. Get started!</string>
-    <string name="drink_count">You\'ve had %s$1 drinks today.</string>
+    <string name="drink_count_initial">What are you waiting for? Get a drink!</string>
+    <string name="drink_count_good">You\'re probably feeling great!</string>
+    <string name="drink_count_okay">You should probably slow down.</string>
+    <string name="drink_count_bad">Find friends. Sleep on your side.</string>
+    <string name="drink_count">You\'ve had %d drinks today.</string>
 </resources>

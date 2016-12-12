@@ -15,18 +15,30 @@ public class EntryListTouchHelper extends ItemTouchHelper.Callback {
     public EntryListTouchHelper(EntryAdapter adapter) {
         this.adapter = adapter;
     }
+
+    @Override
+    public boolean isLongPressDragEnabled() {
+        return true;
+    }
+
+    @Override
+    public boolean isItemViewSwipeEnabled() {
+        return true;
+    }
+
     /*
     Allows only swipes for entries
      */
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+        int dragFlags = 0;
         int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
         return makeFlag(dragFlags, swipeFlags);
     }
 
     @Override
-    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                          RecyclerView.ViewHolder target) {
         return false;
     }
 

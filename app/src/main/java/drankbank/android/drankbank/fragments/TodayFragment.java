@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import drankbank.android.drankbank.MainActivity;
 import drankbank.android.drankbank.R;
 import drankbank.android.drankbank.adapter.EntryAdapter;
@@ -34,6 +30,7 @@ import drankbank.android.drankbank.data.Drink;
 public class TodayFragment extends Fragment {
     private TextView tvDate;
     private TextView tvDrinkCount;
+    private TextView tvComment;
 
     private EntryAdapter entryAdapter;
     private String curDate;
@@ -42,9 +39,10 @@ public class TodayFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rv = inflater.inflate(R.layout.content_today, null);
+        View rv = inflater.inflate(R.layout.fragment_today, null);
         curDate = ((MainActivity) getContext()).getCurrDate();
 
+        tvComment = (TextView) rv.findViewById(R.id.todayComment);
         tvDate = (TextView) rv.findViewById(R.id.todayDate);
         tvDate.setText(curDate);
         tvDrinkCount = (TextView) rv.findViewById(R.id.todayDrinkCount);
@@ -56,7 +54,6 @@ public class TodayFragment extends Fragment {
         setUpRecycler();
 
         initEntryListener();
-
         return rv;
     }
 
@@ -67,9 +64,37 @@ public class TodayFragment extends Fragment {
         layoutManager.getChildAt(0);
         recyclerEntry.setLayoutManager(layoutManager);
         recyclerEntry.setAdapter(entryAdapter);
+
+/*        EntryListTouchHelper touchHelperCallback = new EntryListTouchHelper(entryAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(touchHelperCallback);
+        touchHelper.attachToRecyclerView(recyclerEntry);*/
+
+        // For whatever reason, this works but not the code above??
+        ItemTouchHelper.SimpleCallback itemTouchCallback = new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                  RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                entryAdapter.removeEntry(position);
+
+                updateDrinkNum(entryAdapter.getItemCount());
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerEntry);
     }
 
+    /*
+    Listens for changes
+     */
     private void initEntryListener() {
+        // get's what stored for the user that day
         String path = "users/" + ((MainActivity)getActivity()).getUid() + "/today";
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
         ref.addChildEventListener(new ChildEventListener() {
@@ -81,6 +106,8 @@ public class TodayFragment extends Fragment {
                 entryAdapter.addEntry(newDrink, dataSnapshot.getKey());
                 // scroll to top when new item is added
                 recyclerEntry.smoothScrollToPosition(0);
+                // updates number of drinks
+                updateDrinkNum(entryAdapter.getItemCount());
             }
 
             @Override
@@ -103,5 +130,21 @@ public class TodayFragment extends Fragment {
 
             }
         });
+    }
+
+    /*
+    Updates drink number and comment
+     */
+    private void updateDrinkNum(int count) {
+        tvDrinkCount.setText(getString(R.string.drink_count, count));
+        if (count == 0) {
+            tvComment.setText(getString(R.string.drink_count_initial));
+        } else if (count <= 3) {
+            tvComment.setText(getString(R.string.drink_count_good));
+        } else if (count <= 6) {
+            tvComment.setText(getString(R.string.drink_count_okay));
+        } else {
+            tvComment.setText(getString(R.string.drink_count_bad));
+        }
     }
 }

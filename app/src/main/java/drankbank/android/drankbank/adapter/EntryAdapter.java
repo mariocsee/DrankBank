@@ -15,11 +15,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-import drankbank.android.drankbank.BaseActivity;
 import drankbank.android.drankbank.MainActivity;
 import drankbank.android.drankbank.R;
 import drankbank.android.drankbank.data.Drink;
-import drankbank.android.drankbank.data.Entry;
 
 /**
  * Created by Veronica on 12/1/16.
@@ -27,9 +25,10 @@ import drankbank.android.drankbank.data.Entry;
  */
 
 public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> {
+
     /*
     Creates view for a single drink display
-     */
+    */
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvName;

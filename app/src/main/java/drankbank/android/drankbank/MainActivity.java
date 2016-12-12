@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -116,11 +117,12 @@ public class MainActivity extends BaseActivity
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_today_view:
-                        Toast.makeText(MainActivity.this, "TODAY VIEW", Toast.LENGTH_SHORT).show();
-                        //viewFlipper.setDisplayedChild(0);
+                        // prevents item from being re-clicked
+                        if (!isFragmentPresent(R.id.action_today_view)) {
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         ft.replace(R.id.main_placeholder, new TodayFragment());
                         ft.commit();
+                        }
                         return true;
                     case R.id.action_card_view:
                         Toast.makeText(MainActivity.this, "CARD VIEW", Toast.LENGTH_SHORT).show();
@@ -139,26 +141,6 @@ public class MainActivity extends BaseActivity
             }
         });
     }
-
-    /*
-    Set up recycler view of today's drinks
-    private void setUpRecyclerView() {
-        List<Entry> entryList = new ArrayList<>();
-
-        entryAdapter = new EntryAdapter(Context context, this);
-
-        recyclerEntry = (RecyclerView) findViewById(
-                R.id.recyclerEntry);
-        recyclerEntry.setLayoutManager(new LinearLayoutManager(this));
-        recyclerEntry.setAdapter(entryAdapter);
-
-        EntryListTouchHelper touchHelperCallback = new EntryListTouchHelper(
-                entryAdapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(
-                touchHelperCallback);
-        touchHelper.attachToRecyclerView(recyclerEntry);
-    }
-    */
 
     /*
     Handles when back button is pressed
@@ -215,5 +197,14 @@ public class MainActivity extends BaseActivity
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return false;
+    }
+
+    private boolean isFragmentPresent (int id) {
+        Fragment frag = getSupportFragmentManager().findFragmentById(id);
+        if (frag instanceof TodayFragment)  {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -82,6 +83,8 @@ public class SearchActivity extends BaseActivity {
         SearchView searchView = (SearchView) menu.findItem(R.id.svMenu).getActionView();
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        // Do not iconify the widget
+        //searchView.setIconifiedByDefault(false);
         return true;
     }
 
@@ -103,7 +106,7 @@ public class SearchActivity extends BaseActivity {
         searchAdapter = new SearchAdapter(new ArrayList<Drink>(), this);
         Log.d("TAG_QUERY", "Query input: " + query);
         Call<BeerResult> beerCall = beerApi.getBeerName(apiid, query,
-                getString(drankbank.android.drankbank.R.string.txt_beer));
+                "beer");
         beerCall.enqueue(new Callback<BeerResult>() {
             @Override
             public void onResponse(Call<BeerResult> call, Response<BeerResult> response) {
@@ -118,7 +121,7 @@ public class SearchActivity extends BaseActivity {
                         Log.d("TAG_QUERY", "Successfully added: " + result.getName());
                     }
                 } else {
-                    // Make a toast saying no response?
+                    showToast(getString(R.string.query_fail));
                 }
                 recyclerSearch.setAdapter(searchAdapter);
             }
@@ -145,7 +148,6 @@ public class SearchActivity extends BaseActivity {
                 setResult(RESULT_OK, intentAdd);
                 Log.d("TAG_ENTRY", "RESULT OK");
                 finish();
-                //onDestroy();
             }
         } else {
             // if activity not started by entry, then show drink details
@@ -163,5 +165,9 @@ public class SearchActivity extends BaseActivity {
         intentShow.putExtra(KEY_SHOW_DRINK, d);
         intentShow.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intentShow);
+    }
+
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

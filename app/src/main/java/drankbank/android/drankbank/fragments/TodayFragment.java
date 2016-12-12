@@ -33,7 +33,6 @@ public class TodayFragment extends Fragment {
     private TextView tvComment;
 
     private EntryAdapter entryAdapter;
-    private LinearLayoutManager layoutManager;
     private String curDate;
     private RecyclerView recyclerEntry;
 

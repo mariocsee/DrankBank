@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -30,14 +31,15 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     Creates view for a single drink display
     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
         private TextView tvName;
-        private TextView tvDescrp;
+        private TextView tvType;
+        private ImageView imgDrink;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.tvName);
-            tvDescrp = (TextView) itemView.findViewById(R.id.tvDescrp);
+            tvType = (TextView) itemView.findViewById(R.id.tvType);
+            imgDrink = (ImageView) itemView.findViewById(R.id.ivDrink);
         }
     }
 
@@ -69,7 +71,8 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tvName.setText(entryList.get(position).getName());
-        holder.tvDescrp.setText(entryList.get(position).getType());
+        holder.tvType.setText(entryList.get(position).getType());
+        holder.imgDrink.setImageResource(entryList.get(position).getIcon());
 
         //setAnimation(holder.itemView, position);
     }

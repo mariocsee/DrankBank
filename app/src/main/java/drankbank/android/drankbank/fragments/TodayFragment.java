@@ -1,5 +1,6 @@
 package drankbank.android.drankbank.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import drankbank.android.drankbank.CreateEntryActivity;
 import drankbank.android.drankbank.MainActivity;
 import drankbank.android.drankbank.R;
-import drankbank.android.drankbank.TodayActivity;
 import drankbank.android.drankbank.adapter.EntryAdapter;
 import drankbank.android.drankbank.data.Drink;
 
@@ -40,6 +40,7 @@ public class TodayFragment extends Fragment {
     private LinearLayoutManager layoutManager;
     private String curDate;
     private RecyclerView recyclerEntry;
+    private Integer count;
 
     @Nullable
     @Override
@@ -50,6 +51,7 @@ public class TodayFragment extends Fragment {
         entryAdapter = new EntryAdapter(getContext(), curDate);
         recyclerEntry = (RecyclerView) rv.findViewById(R.id.todayDrinkList);
         setUpRecycler();
+        initEntryListener();
 
         FloatingActionButton fab = (FloatingActionButton) rv.findViewById(R.id.fabAddDrinkToday);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -59,13 +61,14 @@ public class TodayFragment extends Fragment {
             }
         });
 
+        count = entryAdapter.getItemCount();
+
         tvComment = (TextView) rv.findViewById(R.id.todayComment);
         tvDate = (TextView) rv.findViewById(R.id.todayDate);
         tvDate.setText(curDate);
         tvDrinkCount = (TextView) rv.findViewById(R.id.todayDrinkCount);
         tvDrinkCount.setText(R.string.drink_count_initial);
 
-        initEntryListener();
         return rv;
     }
 
@@ -121,7 +124,6 @@ public class TodayFragment extends Fragment {
                 // updates number of drinks
                 updateDrinkNum(entryAdapter.getItemCount());
             }
-
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
@@ -148,7 +150,7 @@ public class TodayFragment extends Fragment {
     Updates drink number and comment
      */
     private void updateDrinkNum(int count) {
-        tvDrinkCount.setText(getString(R.string.drink_count, count));
+        tvDrinkCount.setText(getString(R.string.drink_count));
         if (count == 0) {
             tvComment.setText(getString(R.string.drink_count_initial));
         } else if (count <= 3) {

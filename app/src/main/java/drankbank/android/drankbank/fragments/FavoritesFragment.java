@@ -1,7 +1,10 @@
 package drankbank.android.drankbank.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +21,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import drankbank.android.drankbank.CreateEntryActivity;
+import drankbank.android.drankbank.CreateFavoriteActivity;
 import drankbank.android.drankbank.MainActivity;
 import drankbank.android.drankbank.R;
 import drankbank.android.drankbank.adapter.FavoritesAdapter;
@@ -43,6 +48,14 @@ public class FavoritesFragment extends Fragment {
         setUpRecycler();
         setUpTouch();
         initFavoriteListener();
+
+        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fabAddFavorite);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), CreateFavoriteActivity.class));
+            }
+        });
 
         return rootView;
     }

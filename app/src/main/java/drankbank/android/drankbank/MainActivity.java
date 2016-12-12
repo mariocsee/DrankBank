@@ -7,10 +7,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
@@ -34,6 +36,7 @@ public class MainActivity extends BaseActivity
     private TextView tvEmail;
     private TextView tvUserName;
     private FirebaseUser user;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,34 +107,56 @@ public class MainActivity extends BaseActivity
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment = null;
+                Class fragmentClass = null;
+
                 switch (item.getItemId()) {
                     case R.id.action_today_view:
                         // prevents item from being re-clicked
+                        Log.d("TAG_FRAG", "TODAY");
+                        fragmentClass = TodayFragment.class;
                         if (!isFragmentPresent("FRAG_TODAY")) {
-                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                            ft.replace(R.id.main_placeholder, new TodayFragment(), "FRAG_TODAY");
-                            ft.commit();
+        /*                    try {
+                                fragment = (Fragment) fragmentClass.newInstance();
+                            } catch (InstantiationException e) {
+                                e.printStackTrace();
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            }*/
+/*
+                            fragmentManager = getSupportFragmentManager();
+*/
                         }
-                        return true;
+                        break;
                     case R.id.action_card_view:
-//                        Toast.makeText(MainActivity.this, "CARD VIEW", Toast.LENGTH_SHORT).show();
+                        Log.d("TAG_FRAG", "FAVS");
+                        fragmentClass = FavoritesFragment.class;
                         if (!isFragmentPresent("FRAG_FAVORITES")) {
-                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                            ft.replace(R.id.main_placeholder, new FavoritesFragment(), "FRAG_FAVORITES");
-                            ft.commit();
+/*                            fragmentManager.beginTransaction()
+                                    .replace(R.id.main_placeholder, new FavoritesFragment(), "FRAG_FAVORITES")
+                                    .commit();*/
                         }
-                        return true;
+                        break;
 //                    case R.id.action_search_view:
 //                        Toast.makeText(MainActivity.this, "SEARCH VIEW", Toast.LENGTH_SHORT).show();
 //                        return true;
                     case R.id.action_calendar_view:
                         Toast.makeText(MainActivity.this, "CALENDAR VIEW", Toast.LENGTH_SHORT).show();
-                        return true;
                     case R.id.action_graph_view:
                         Toast.makeText(MainActivity.this, "GRAPH VIEW", Toast.LENGTH_SHORT).show();
-                        return true;
                 }
-                return false;
+                try {
+                    fragment = (Fragment) fragmentClass.newInstance();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.main_placeholder, fragment)
+                        .commit();
+                return true;
             }
         });
     }

@@ -2,7 +2,6 @@ package drankbank.android.drankbank;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
@@ -11,26 +10,20 @@ import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
-import butterknife.OnTouch;
 import drankbank.android.drankbank.data.Drink;
-import drankbank.android.drankbank.data.Entry;
 
 /**
  * Created by Veronica on 11/21/16.
  */
 
 public class CreateEntryActivity extends BaseActivity {
-    @BindView(R.id.etName)
-    EditText etName;
-    @BindView (R.id.etDescrp)
-    EditText etDescrp;
+    @BindView(R.id.etEntryName)
+    EditText etEntryName;
+    @BindView (R.id.etEntryDescrp)
+    EditText etEntryDescrp;
 
     private TextView tvDate;
 
@@ -59,14 +52,14 @@ public class CreateEntryActivity extends BaseActivity {
     /*
     Adds drink to firebase user's database
      */
-    @OnClick(R.id.btnAdd)
+    @OnClick(R.id.btnAddEntry)
     void sendClick() {
         if (!isEntryValid()) {
             return;
         }
 
         // pushes drinks to database of current date (MM dd yyyy format)
-        Drink d = new Drink(etName.getText().toString(), etDescrp.getText().toString());
+        Drink d = new Drink(etEntryName.getText().toString(), etEntryDescrp.getText().toString());
         // get list index of added drink
         String drinkId = FirebaseDatabase.getInstance().getReference().
                 child("users").child(getUid()).child("today").push().getKey();
@@ -84,18 +77,18 @@ public class CreateEntryActivity extends BaseActivity {
 
     private boolean isEntryValid() {
         boolean result = true;
-        if (TextUtils.isEmpty(etName.getText().toString())) {
-            etName.setError("Required");
+        if (TextUtils.isEmpty(etEntryName.getText().toString())) {
+            etEntryName.setError("Required");
             result = false;
         } else {
-            etName.setError(null);
+            etEntryName.setError(null);
         }
 
-        if (TextUtils.isEmpty(etDescrp.getText().toString())) {
-            etDescrp.setError("Required");
+        if (TextUtils.isEmpty(etEntryDescrp.getText().toString())) {
+            etEntryDescrp.setError("Required");
             result = false;
         } else {
-            etDescrp.setError(null);
+            etEntryDescrp.setError(null);
         }
         return result;
     }
@@ -114,8 +107,8 @@ public class CreateEntryActivity extends BaseActivity {
                     Bundle b = getIntent().getExtras();
                     Drink d = (Drink) b.getSerializable(SearchActivity.KEY_ADD_DRINK);
                     Log.d("TAG_ADD", "Getting drink info for " + d.getName());
-                    etName.setText(d.getName());
-                    etDescrp.setText(d.getDescrp());
+                    etEntryName.setText(d.getName());
+                    etEntryDescrp.setText(d.getDescrp());
                 } else {
                     Toast.makeText(this, "Unable to add result", Toast.LENGTH_LONG).show();
                 }

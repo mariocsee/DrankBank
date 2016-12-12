@@ -86,7 +86,7 @@ public class MainActivity extends BaseActivity
     private void setUpDrawer() {
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        
+
         hView = navigationView.getHeaderView(0);
 
         tvEmail = (TextView) hView.findViewById(R.id.tvEmail);
@@ -152,6 +152,26 @@ public class MainActivity extends BaseActivity
             }
         });
     }
+
+    /*
+    Set up recycler view of today's drinks
+    private void setUpRecyclerView() {
+        List<Entry> entryList = new ArrayList<>();
+
+        entryAdapter = new EntryAdapter(Context context, this);
+
+        recyclerEntry = (RecyclerView) findViewById(
+                R.id.recyclerEntry);
+        recyclerEntry.setLayoutManager(new LinearLayoutManager(this));
+        recyclerEntry.setAdapter(entryAdapter);
+
+        EntryListTouchHelper touchHelperCallback = new EntryListTouchHelper(
+                entryAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(
+                touchHelperCallback);
+        touchHelper.attachToRecyclerView(recyclerEntry);
+    }
+    */
 
     /*
     Handles when back button is pressed

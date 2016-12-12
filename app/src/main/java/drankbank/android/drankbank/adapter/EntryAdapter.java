@@ -31,6 +31,7 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     Creates view for a single drink display
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
         private TextView tvName;
         private TextView tvDescrp;
 
@@ -71,7 +72,7 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
         holder.tvName.setText(entryList.get(position).getName());
         holder.tvDescrp.setText(entryList.get(position).getType());
 
-        setAnimation(holder.itemView, position);
+        //setAnimation(holder.itemView, position);
     }
 
     @Override
@@ -93,9 +94,9 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     Adds entry to display list
     */
     public void addEntry(Drink d, String key) {
-        entryList.add(d);
-        entryKeys.add(key);
-        notifyDataSetChanged();
+        entryList.add(0, d);
+        entryKeys.add(0, key);
+        notifyItemInserted(0);
     }
 
     private void setAnimation(View viewToAnimate, int position) {

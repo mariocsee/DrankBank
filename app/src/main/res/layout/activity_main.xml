@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <android.support.design.widget.CoordinatorLayout 
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
@@ -21,8 +21,8 @@
                 android:id="@+id/appbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/AppTheme.AppBarOverlay"
-                android:layout_alignParentTop="true">
+                android:layout_alignParentTop="true"
+                android:theme="@style/AppTheme.AppBarOverlay">
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -32,51 +32,33 @@
                     app:popupTheme="@style/AppTheme.PopupOverlay" />
 
             </android.support.design.widget.AppBarLayout>
-            
+
             <FrameLayout
+                android:id="@+id/main_placeholder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/main_placeholder"/>
-
-            <ViewFlipper
-                android:id="@+id/viewFlipper"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/appbar">
-
-                <!--0-->
-                <include layout="@layout/content_today" />
-                <!--1-->
-                <include layout="@layout/content_main" />
-                <!--2-->
-                <!--<include layout="@layout/content_search" />-->
-                <!--2-->
-                <include layout="@layout/content_calendar" />
-                <!--3-->
-                <include layout="@layout/content_main" />
-
-            </ViewFlipper>
+                android:paddingTop="?android:attr/actionBarSize"
+                android:paddingBottom="?android:attr/actionBarSize"/>
 
             <android.support.design.widget.BottomNavigationView
                 android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 app:itemBackground="@color/colorPrimaryDark"
                 app:itemIconTint="@color/bottom_navigation_items"
                 app:itemTextColor="@color/bottom_navigation_items"
-                app:menu="@menu/bottom_navigation_menu"
-                android:layout_alignParentBottom="true" />
+                app:menu="@menu/bottom_navigation_menu" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fabAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_margin"
-                app:srcCompat="@android:drawable/ic_dialog_email"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
                 android:layout_above="@id/bottom_navigation"
-                />
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/fab_margin"
+                app:srcCompat="@android:drawable/ic_dialog_email" />
 
         </RelativeLayout>
 

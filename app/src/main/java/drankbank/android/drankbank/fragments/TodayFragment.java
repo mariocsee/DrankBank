@@ -1,4 +1,4 @@
-package drankbank.android.drankbank;
+package drankbank.android.drankbank.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +22,8 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import drankbank.android.drankbank.MainActivity;
+import drankbank.android.drankbank.R;
 import drankbank.android.drankbank.adapter.EntryAdapter;
 import drankbank.android.drankbank.data.Drink;
 
@@ -34,6 +37,7 @@ public class TodayFragment extends Fragment {
 
     private EntryAdapter entryAdapter;
     private String curDate;
+    private RecyclerView recyclerEntry;
 
     @Nullable
     @Override
@@ -48,33 +52,55 @@ public class TodayFragment extends Fragment {
 
         // initiate holder for today's drinks
         entryAdapter = new EntryAdapter(getContext(), curDate);
-        RecyclerView recyclerEntry = (RecyclerView) rv.findViewById(R.id.todayDrinkList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        // most recent drink first
-        layoutManager.setRecycleChildrenOnDetach(true);
-        layoutManager.setStackFromEnd(true);
-        recyclerEntry.setLayoutManager(layoutManager);
-        recyclerEntry.setAdapter(entryAdapter);
+        recyclerEntry = (RecyclerView) rv.findViewById(R.id.todayDrinkList);
+        setUpRecycler();
 
         initEntryListener();
 
         return rv;
     }
 
+    private void setUpRecycler() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        // most recent drink at top of stack
+        layoutManager.setRecycleChildrenOnDetach(true);
+        layoutManager.getChildAt(0);
+        recyclerEntry.setLayoutManager(layoutManager);
+        recyclerEntry.setAdapter(entryAdapter);
+    }
+
     private void initEntryListener() {
-        String path = "users/" + ((MainActivity)getContext).getUid();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(curDate);
-        ref.addValueEventListener(new ValueEventListener() {
+        String path = "users/" + ((MainActivity)getActivity()).getUid() + "/today";
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
+        ref.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Drink newDrink = dataSnapshot.getValue(Drink.class);
-                entryAdapter.addEntry(newDrink, dataSnapshot.getKey());
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Log.d("TAG_FIREBASE", "Drink fetched: " + dataSnapshot.getKey());
+                Drink newDrink = dataSnapshot.getValue(Drink.class);
+                Log.d("TAG_FIREBASE", "Drink: " + newDrink.getName());
+                entryAdapter.addEntry(newDrink, dataSnapshot.getKey());
+                // scroll to top when new item is added
+                recyclerEntry.smoothScrollToPosition(0);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//                entryAdapter.removeEntry();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("TAG_FIREBASE", "Fetch error: " + databaseError.getMessage());
+
             }
         });
     }

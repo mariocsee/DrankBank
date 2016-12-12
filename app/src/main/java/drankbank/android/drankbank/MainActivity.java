@@ -9,11 +9,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
@@ -24,12 +20,7 @@ import android.widget.ViewFlipper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import drankbank.android.drankbank.adapter.EntryAdapter;
-import drankbank.android.drankbank.data.Entry;
-import drankbank.android.drankbank.touch.EntryListTouchHelper;
+import drankbank.android.drankbank.fragments.TodayFragment;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,8 +29,7 @@ public class MainActivity extends BaseActivity
     private View hView;
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
-    private ViewFlipper viewFlipper;
-    private CalendarView calendarView;
+    //private CalendarView calendarView;
     private TextView tvEmail;
     private TextView tvUserName;
     private FirebaseUser user;
@@ -50,26 +40,26 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        setUpUI();
-
         // switching views
-        viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
 
-        calendarView = (CalendarView) findViewById(R.id.calendarView);
+/*        calendarView = (CalendarView) findViewById(R.id.calendarView);
         calendarView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
-        });
-
+        });*/
+        setUpUI();
+        if (savedInstanceState == null) {
+            bottomNavigationView.getMenu().performIdentifierAction(R.id.action_today_view, 0);
+        }
     }
 
     private void setUpUI() {
         setUpToolBar();
         setUpBottomNav();
-        //setUpRecyclerView();
         setUpDrawer();
+        //setUpRecyclerView();
         setUpFab();
     }
 
@@ -134,18 +124,15 @@ public class MainActivity extends BaseActivity
                         return true;
                     case R.id.action_card_view:
                         Toast.makeText(MainActivity.this, "CARD VIEW", Toast.LENGTH_SHORT).show();
-                        viewFlipper.setDisplayedChild(1);
                         return true;
 //                    case R.id.action_search_view:
 //                        Toast.makeText(MainActivity.this, "SEARCH VIEW", Toast.LENGTH_SHORT).show();
 //                        return true;
                     case R.id.action_calendar_view:
                         Toast.makeText(MainActivity.this, "CALENDAR VIEW", Toast.LENGTH_SHORT).show();
-                        viewFlipper.setDisplayedChild(2);
                         return true;
                     case R.id.action_graph_view:
                         Toast.makeText(MainActivity.this, "GRAPH VIEW", Toast.LENGTH_SHORT).show();
-                        viewFlipper.setDisplayedChild(3);
                         return true;
                 }
                 return false;
@@ -209,9 +196,9 @@ public class MainActivity extends BaseActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         switch (item.getItemId()) {
-            case R.id.nav_list:
+//            case R.id.nav_list:
                 //handle camera action
-                break;
+//                break;
             case R.id.nav_favorites:
                 break;
 //            case R.id.nav_settings:

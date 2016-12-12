@@ -16,12 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import drankbank.android.drankbank.MainActivity;
 import drankbank.android.drankbank.R;
 import drankbank.android.drankbank.adapter.EntryAdapter;

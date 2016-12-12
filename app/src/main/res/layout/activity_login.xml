@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:hint="email"
-                android:text="childv@carleton.edu"/>
+                android:text="msee@wesleyan.edu"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:hint="Password"
-                android:text="admin123"/>
+                android:text="diduseemario"/>
         </android.support.design.widget.TextInputLayout>
 
         <Button

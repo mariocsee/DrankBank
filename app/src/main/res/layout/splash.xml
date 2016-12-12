@@ -17,7 +17,8 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="#70000000"
-        android:textSize="20sp"
-        android:text="This is Drank Bank" />
+        android:textSize="28sp"
+        android:text="@string/splash"
+        android:textStyle="bold"/>
 
 </LinearLayout>

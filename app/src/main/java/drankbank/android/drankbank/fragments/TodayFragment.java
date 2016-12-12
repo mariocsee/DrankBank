@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import drankbank.android.drankbank.CreateEntryActivity;
 import drankbank.android.drankbank.MainActivity;
 import drankbank.android.drankbank.R;
+import drankbank.android.drankbank.ShowDrinkActivity;
 import drankbank.android.drankbank.adapter.EntryAdapter;
 import drankbank.android.drankbank.data.Drink;
 
@@ -32,14 +33,16 @@ import drankbank.android.drankbank.data.Drink;
  */
 
 public class TodayFragment extends Fragment {
+    public static final String KEY_SHOW_DRINK = "KEY_SHOW_DRINK";
+
     private TextView tvDate;
     private TextView tvDrinkCount;
     private TextView tvComment;
 
     private EntryAdapter entryAdapter;
-    private LinearLayoutManager layoutManager;
     private String curDate;
     private RecyclerView recyclerEntry;
+    private LinearLayoutManager layoutManager;
     private Integer count;
 
     @Nullable
@@ -154,6 +157,9 @@ public class TodayFragment extends Fragment {
         if (count == 0) {
             tvComment.setText(getString(R.string.drink_count_initial));
         } else if (count <= 3) {
+            if (count == 1) {
+                tvDrinkCount.setText(R.string.drink_count_one);
+            }
             tvComment.setText(getString(R.string.drink_count_good));
         } else if (count <= 6) {
             tvComment.setText(getString(R.string.drink_count_okay));

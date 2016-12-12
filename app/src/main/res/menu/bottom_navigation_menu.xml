@@ -13,7 +13,7 @@
         android:enabled="true"
         android:icon="@drawable/ic_local_bar"
         android:showAsAction="ifRoom"
-        android:title="Cards" />
+        android:title="Favorites" />
 
     <!--<item-->
         <!--android:id="@+id/action_search_view"-->

@@ -26,22 +26,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvName;
-        private TextView tvDescrp;
+        private TextView tvType;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.tvName);
-            tvDescrp = (TextView) itemView.findViewById(R.id.tvDescrp);
+            tvType = (TextView) itemView.findViewById(R.id.tvType);
             itemView.setClickable(true);
         }
     }
-
-    private LayoutInflater layoutInflater;
     private List<Drink> searchList;
     private Context context;
 
     public SearchAdapter(List<Drink> drinkList, Context context) {
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.searchList = drinkList;
         this.context = context;
     }
@@ -60,7 +57,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvName.setText(searchList.get(position).getName());
-        holder.tvDescrp.setText(searchList.get(position).getType());
+        holder.tvType.setText(searchList.get(position).getType());
         // allows whole row to be clicked
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

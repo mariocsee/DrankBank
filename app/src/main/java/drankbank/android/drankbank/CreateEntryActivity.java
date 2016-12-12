@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ public class CreateEntryActivity extends BaseActivity {
     EditText etEntryDescrp;
 
     private TextView tvDate;
+    private Spinner spinType;
 
     public static final int REQUEST_DRINK = 100;
 
@@ -38,6 +41,13 @@ public class CreateEntryActivity extends BaseActivity {
 
         tvDate = (TextView) findViewById(R.id.entryDate);
         tvDate.setText(getCurrDate());
+
+        // set up spinner
+        spinType = (Spinner) findViewById(R.id.spinType);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.type_array, android.R.layout.simple_dropdown_item_1line);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinType.setAdapter(adapter);
     }
 
     /*@OnTouch(R.id.etName)
@@ -57,7 +67,6 @@ public class CreateEntryActivity extends BaseActivity {
         if (!isEntryValid()) {
             return;
         }
-
         // pushes drinks to database of current date (MM dd yyyy format)
         Drink d = new Drink(etEntryName.getText().toString(), etEntryDescrp.getText().toString());
         // get list index of added drink

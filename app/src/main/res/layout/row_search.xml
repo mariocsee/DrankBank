@@ -15,31 +15,32 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/ivArrow"
+            android:id="@+id/ivDrink"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_margin="10dp"
             android:scaleType="fitXY"
-            android:src="@drawable/beer" />
+            android:src="@drawable/misc_drinks" />
 
         <TextView
             android:id="@+id/tvName"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/ivArrow"
+            android:layout_toRightOf="@+id/ivDrink"
             android:maxLines="1"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvDescrp"
+            android:id="@+id/tvType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/tvName" />
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"/>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

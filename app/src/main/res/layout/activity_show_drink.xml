@@ -2,16 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal">
+
+    <ImageView
+        android:layout_marginTop="30dp"
+        android:id="@+id/ivDrinkIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp" />
 
     <TextView
         android:id="@+id/tvDrinkName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:padding="10dp"
         android:textSize="40sp"
+        android:textStyle="bold"
         android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/tvDrinkType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"/>
 
     <TextView
         android:id="@+id/tvDrinkDescrp"

@@ -18,7 +18,7 @@
         android:layout_gravity="left"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
-        android:text="Drink name:"
+        android:text="@string/drink_name"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:hint="Some awesome drank"
+        android:hint="@string/entry_hint_name"
         android:inputType="text"
         android:textSize="18sp" />
 
@@ -39,7 +39,25 @@
         android:layout_gravity="left"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
-        android:text="Description:"
+        android:text="@string/drink_type"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/spinType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/drink_descrp"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -50,7 +68,7 @@
         android:layout_marginBottom="25dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:hint="It was awesome"
+        android:hint="@string/entry_hint_descrp"
         android:textSize="18sp" />
 
     <LinearLayout

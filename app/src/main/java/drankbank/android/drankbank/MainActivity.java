@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -118,10 +117,10 @@ public class MainActivity extends BaseActivity
                 switch (item.getItemId()) {
                     case R.id.action_today_view:
                         // prevents item from being re-clicked
-                        if (!isFragmentPresent(R.id.action_today_view)) {
-                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                        ft.replace(R.id.main_placeholder, new TodayFragment());
-                        ft.commit();
+                        if (!isFragmentPresent("FRAG_TODAY")) {
+                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                            ft.replace(R.id.main_placeholder, new TodayFragment(), "FRAG_TODAY");
+                            ft.commit();
                         }
                         return true;
                     case R.id.action_card_view:
@@ -140,6 +139,18 @@ public class MainActivity extends BaseActivity
                 return false;
             }
         });
+    }
+
+    /*
+    Checks if fragment is already present
+     */
+    private boolean isFragmentPresent (String tag) {
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
+        if (frag instanceof TodayFragment)  {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /*
@@ -197,14 +208,5 @@ public class MainActivity extends BaseActivity
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return false;
-    }
-
-    private boolean isFragmentPresent (int id) {
-        Fragment frag = getSupportFragmentManager().findFragmentById(id);
-        if (frag instanceof TodayFragment)  {
-            return true;
-        } else {
-            return false;
-        }
     }
 }

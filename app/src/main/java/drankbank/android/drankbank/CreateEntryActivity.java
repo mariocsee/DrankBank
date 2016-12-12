@@ -36,11 +36,11 @@ public class CreateEntryActivity extends AppCompatActivity {
     }
 
     @OnTouch(R.id.etName)
-    void startSearch() {
+    boolean startSearch() {
         Intent intentShowSearch = new Intent();
         intentShowSearch.setClass(this, SearchActivity.class);
         startActivityForResult(intentShowSearch, REQUEST_DRINK);
-        return;
+        return true;
     }
 
     @OnClick(R.id.btnAdd)

@@ -15,6 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CalendarView;
+import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -29,14 +32,37 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
     private EntryAdapter entryAdapter;
+    private ViewFlipper viewFlipper;
+    private CalendarView calendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setUpToolBar();
-        setUpRecyclerView();
 
+        // switching views
+        viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
+
+        calendarView = (CalendarView) findViewById(R.id.calendarView);
+        calendarView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        setUpUI();
+    }
+
+    private void setUpUI() {
+        setUpToolBar();
+        setUpBottomNav();
+        setUpRecyclerView();
+        setUpDrawer();
+        setUpFab();
+    }
+
+    private void setUpFab() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,10 +70,13 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(MainActivity.this, CreateEntryActivity.class));
             }
         });
+    }
 
+    private void setUpDrawer() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     /*
@@ -68,29 +97,34 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-
     private void setUpBottomNav() {
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_today_view:
-
-                        break;
+                        Toast.makeText(MainActivity.this, "TODAY VIEW", Toast.LENGTH_SHORT).show();
+                        viewFlipper.setDisplayedChild(0);
+                        return true;
                     case R.id.action_card_view:
-
-                        break;
-                    case R.id.action_calendar_view:
-
-                        break;
+                        Toast.makeText(MainActivity.this, "CARD VIEW", Toast.LENGTH_SHORT).show();
+                        viewFlipper.setDisplayedChild(1);
+                        return true;
                     case R.id.action_search_view:
-
-                        break;
+                        Toast.makeText(MainActivity.this, "SEARCH VIEW", Toast.LENGTH_SHORT).show();
+                        viewFlipper.setDisplayedChild(2);
+                        return true;
+                    case R.id.action_calendar_view:
+                        Toast.makeText(MainActivity.this, "CALENDAR VIEW", Toast.LENGTH_SHORT).show();
+                        viewFlipper.setDisplayedChild(3);
+                        return true;
                     case R.id.action_graph_view:
-
-                        break;
+                        Toast.makeText(MainActivity.this, "GRAPH VIEW", Toast.LENGTH_SHORT).show();
+                        viewFlipper.setDisplayedChild(4);
+                        return true;
                 }
                 return false;
             }

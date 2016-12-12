@@ -1,7 +1,9 @@
 package drankbank.android.drankbank.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,10 @@ import java.util.List;
 
 import drankbank.android.drankbank.MainActivity;
 import drankbank.android.drankbank.R;
+import drankbank.android.drankbank.SearchActivity;
+import drankbank.android.drankbank.ShowDrinkActivity;
 import drankbank.android.drankbank.data.Drink;
+import drankbank.android.drankbank.fragments.TodayFragment;
 
 /**
  * Created by Veronica on 12/1/16.
@@ -69,12 +74,22 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvName.setText(entryList.get(position).getName());
         holder.tvType.setText(entryList.get(position).getType());
         holder.imgDrink.setImageResource(entryList.get(position).getIcon());
 
-        //setAnimation(holder.itemView, position);
+        // click on a row will start a new activity that displays info on it
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Drink d = entryList.get(position);
+                Intent intentShow = new Intent(context, ShowDrinkActivity.class);
+                intentShow.putExtra(TodayFragment.KEY_SHOW_DRINK, d);
+                intentShow.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(intentShow);
+            }
+        });
     }
 
     @Override
@@ -108,5 +123,9 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
+    }
+
+    public Drink getEntry(int position) {
+        return entryList.get(position);
     }
 }

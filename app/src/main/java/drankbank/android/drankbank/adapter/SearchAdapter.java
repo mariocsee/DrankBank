@@ -35,13 +35,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             itemView.setClickable(true);
         }
     }
-
-    private LayoutInflater layoutInflater;
     private List<Drink> searchList;
     private Context context;
 
     public SearchAdapter(List<Drink> drinkList, Context context) {
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.searchList = drinkList;
         this.context = context;
     }

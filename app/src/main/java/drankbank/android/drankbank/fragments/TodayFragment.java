@@ -1,5 +1,6 @@
 package drankbank.android.drankbank.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import drankbank.android.drankbank.MainActivity;
 import drankbank.android.drankbank.R;
+import drankbank.android.drankbank.ShowDrinkActivity;
 import drankbank.android.drankbank.adapter.EntryAdapter;
 import drankbank.android.drankbank.data.Drink;
 
@@ -28,6 +30,8 @@ import drankbank.android.drankbank.data.Drink;
  */
 
 public class TodayFragment extends Fragment {
+    public static final String KEY_SHOW_DRINK = "KEY_SHOW_DRINK";
+
     private TextView tvDate;
     private TextView tvDrinkCount;
     private TextView tvComment;

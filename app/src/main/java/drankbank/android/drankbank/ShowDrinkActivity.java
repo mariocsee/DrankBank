@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -15,6 +16,8 @@ import drankbank.android.drankbank.data.Drink;
  */
 
 public class ShowDrinkActivity extends AppCompatActivity {
+    @BindView(R.id.ivDrinkIcon)
+    ImageView ivDrink;
     @BindView(R.id.tvDrinkName)
     TextView tvName;
     @BindView(R.id.tvDrinkDescrp)
@@ -28,16 +31,13 @@ public class ShowDrinkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_drink);
         ButterKnife.bind(this);
         //get drink info
-        // ***** have try catch block if bundle is null
-        try {
-            Bundle b = getIntent().getExtras();
-            drink = (Drink) b.getSerializable(SearchActivity.KEY_SHOW_DRINK);
+        Bundle b = getIntent().getExtras();
+        drink = (Drink) b.getSerializable(SearchActivity.KEY_SHOW_DRINK);
 
-            tvName.setText(drink.getName());
-            tvDescrp.setText(drink.getDescrp());
-        } catch (RuntimeException r) {
-            Log.d("TAG_DRINK", "Error: " + r.getMessage());
-            tvName.setText("NULL");
-        }
+        // set values
+        tvName.setText(drink.getName());
+
+        tvDescrp.setText(drink.getDescrp());
+        ivDrink.setImageResource(drink.getIcon());
     }
 }

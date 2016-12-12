@@ -103,6 +103,8 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     public void removeEntry(int position) {
         // remove it from the list
         entryList.remove(position);
+        Log.d("TAG_FIREBASE", "Removing: " + entryRef.child("today").
+                child(entryKeys.get(position)).getKey());
         entryRef.child("today").child(entryKeys.get(position)).removeValue();
         notifyItemRemoved(position);
     }

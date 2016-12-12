@@ -1,7 +1,9 @@
 package drankbank.android.drankbank.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,8 +20,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import drankbank.android.drankbank.CreateEntryActivity;
 import drankbank.android.drankbank.MainActivity;
 import drankbank.android.drankbank.R;
+import drankbank.android.drankbank.TodayActivity;
 import drankbank.android.drankbank.adapter.EntryAdapter;
 import drankbank.android.drankbank.data.Drink;
 
@@ -47,6 +51,14 @@ public class TodayFragment extends Fragment {
         recyclerEntry = (RecyclerView) rv.findViewById(R.id.todayDrinkList);
         setUpRecycler();
 
+        FloatingActionButton fab = (FloatingActionButton) rv.findViewById(R.id.fabAddDrinkToday);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), CreateEntryActivity.class));
+            }
+        });
+
         tvComment = (TextView) rv.findViewById(R.id.todayComment);
         tvDate = (TextView) rv.findViewById(R.id.todayDate);
         tvDate.setText(curDate);
@@ -58,7 +70,7 @@ public class TodayFragment extends Fragment {
     }
 
     private void setUpRecycler() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager = new LinearLayoutManager(getContext());
         // most recent drink at top of stack
         layoutManager.setRecycleChildrenOnDetach(true);
         layoutManager.getChildAt(0);

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import drankbank.android.drankbank.fragments.FavoritesFragment;
 import drankbank.android.drankbank.fragments.TodayFragment;
 
 public class MainActivity extends BaseActivity
@@ -60,17 +61,6 @@ public class MainActivity extends BaseActivity
         setUpBottomNav();
         setUpDrawer();
         //setUpRecyclerView();
-        setUpFab();
-    }
-
-    private void setUpFab() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, CreateEntryActivity.class));
-            }
-        });
     }
 
     private void setUpDrawer() {
@@ -124,7 +114,12 @@ public class MainActivity extends BaseActivity
                         }
                         return true;
                     case R.id.action_card_view:
-                        Toast.makeText(MainActivity.this, "CARD VIEW", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "CARD VIEW", Toast.LENGTH_SHORT).show();
+                        if (!isFragmentPresent("FRAG_FAVORITES")) {
+                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                            ft.replace(R.id.main_placeholder, new FavoritesFragment(), "FRAG_FAVORITES");
+                            ft.commit();
+                        }
                         return true;
 //                    case R.id.action_search_view:
 //                        Toast.makeText(MainActivity.this, "SEARCH VIEW", Toast.LENGTH_SHORT).show();
@@ -146,7 +141,8 @@ public class MainActivity extends BaseActivity
      */
     private boolean isFragmentPresent (String tag) {
         Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
-        if (frag instanceof TodayFragment)  {
+        if (frag instanceof TodayFragment
+                || frag instanceof FavoritesFragment)  {
             return true;
         } else {
             return false;
@@ -193,6 +189,7 @@ public class MainActivity extends BaseActivity
                 //handle camera action
 //                break;
             case R.id.nav_favorites:
+
                 break;
 //            case R.id.nav_settings:
 //                break;

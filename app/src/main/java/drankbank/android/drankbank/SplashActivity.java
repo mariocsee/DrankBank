@@ -14,7 +14,7 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-        int secondsDelayed = 1;
+        int secondsDelayed = 3;
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 startActivity(new Intent(SplashActivity.this, LoginActivity.class));

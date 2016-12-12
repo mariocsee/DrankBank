@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -67,6 +69,28 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
     @Override
     public int getItemCount() {
-        return 0;
+        return favoriteList.size();
     }
+
+    public void addFavorite(Drink drink, String key) {
+        favoriteList.add(0, drink);
+        favoriteKeys.add(0, key);
+        notifyItemInserted(0);
+    }
+
+    public void removeFavorite(int position) {
+        favoriteList.remove(position);
+        favoriteRef.child("favorites").child(favoriteKeys.get(position)).removeValue();
+        notifyItemRemoved(position);
+    }
+
+    private void setAnimation(View viewToAnimate, int position) {
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(context,
+                    android.R.anim.slide_in_left);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
+    }
+
 }

@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import drankbank.android.drankbank.adapter.EntryAdapter;
@@ -56,19 +58,18 @@ public class TodayFragment extends Fragment {
 
         initEntryListener();
 
-        entryAdapter.addEntry(new Drink("Test", "testing"));
-
         return rv;
     }
 
     private void initEntryListener() {
+        String path = "users/" + ((MainActivity)getContext).getUid();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(curDate);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Drink newDrink = dataSnapshot.getValue(Drink.class);
-                entryAdapter.addEntry(newDrink);
-                Log.d("TAG_FIREBASE", "Drink fetched: " + newDrink.getName());
+                entryAdapter.addEntry(newDrink, dataSnapshot.getKey());
+                Log.d("TAG_FIREBASE", "Drink fetched: " + dataSnapshot.getKey());
             }
 
             @Override

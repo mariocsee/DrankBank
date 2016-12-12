@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import drankbank.android.drankbank.BaseActivity;
+import drankbank.android.drankbank.MainActivity;
 import drankbank.android.drankbank.R;
 import drankbank.android.drankbank.data.Drink;
 import drankbank.android.drankbank.data.Entry;
@@ -41,7 +42,8 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     }
 
     private List<Drink> entryList;
-    private DatabaseReference drinksRef;
+    private List<String> entryKeys;
+    private DatabaseReference entryRef;
     private Context context;
     private int lastPosition = -1;
     private String currDate;
@@ -55,11 +57,13 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     }
 
     public EntryAdapter(Context context, String currDate) {
-        this.entryList = new ArrayList<Drink>();
         this.context = context;
         this.currDate = currDate;
+        this.entryList = new ArrayList<Drink>();
+        this.entryKeys = new ArrayList<String>();
 
-        drinksRef = FirebaseDatabase.getInstance().getReference(currDate);
+        String path = "users/" + ((MainActivity)context).getUid();
+        entryRef = FirebaseDatabase.getInstance().getReference(path);
     }
 
     @Override
@@ -81,14 +85,16 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     public void removeEntry(int position) {
         // remove it from the list
         entryList.remove(position);
-        notifyDataSetChanged();
+        entryRef.child("today").child(entryKeys.get(position)).removeValue();
+        notifyItemRemoved(position);
     }
 
     /*
     Adds entry to display list
     */
-    public void addEntry(Drink d) {
+    public void addEntry(Drink d, String key) {
         entryList.add(d);
+        entryKeys.add(key);
         notifyDataSetChanged();
     }
 

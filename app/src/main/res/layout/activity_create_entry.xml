@@ -6,17 +6,20 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tvDate"
+        android:id="@+id/entryDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date: 12/26/16" />
+        android:layout_marginTop="15dp"
+        android:textSize="25sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:text="Drink name:"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <!-- disable focus mode to let it bring up activity on first tap -->
@@ -24,8 +27,8 @@
         android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:hint="Some awesome drank"
         android:inputType="text"
         android:textSize="18sp" />
@@ -33,17 +36,20 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:text="Description:"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <EditText
         android:id="@+id/etDescrp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:hint="It was awesome"
         android:textSize="18sp" />
 

@@ -34,7 +34,7 @@ public class TodayActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_today);
+//        setContentView(R.layout.content_today);
 
         ButterKnife.bind(this);
 
@@ -46,8 +46,6 @@ public class TodayActivity extends BaseActivity {
         setUpRecyclerView();
 
         initEntryListener();
-
-        entryAdapter.addEntry(new Drink("Test", "testing"));
     }
 
     private void setUpRecyclerView() {
@@ -66,7 +64,7 @@ public class TodayActivity extends BaseActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Drink newDrink = dataSnapshot.getValue(Drink.class);
-                entryAdapter.addEntry(newDrink);
+                entryAdapter.addEntry(newDrink, dataSnapshot.getKey());
                 Log.d("TAG_FIREBASE", "Drink fetched: " + newDrink.getName());
             }
 

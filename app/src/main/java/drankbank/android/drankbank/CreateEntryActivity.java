@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,6 +32,8 @@ public class CreateEntryActivity extends BaseActivity {
     @BindView (R.id.etDescrp)
     EditText etDescrp;
 
+    private TextView tvDate;
+
     public static final int REQUEST_DRINK = 100;
 
     @Override
@@ -39,6 +42,9 @@ public class CreateEntryActivity extends BaseActivity {
         setContentView(R.layout.activity_create_entry);
 
         ButterKnife.bind(this);
+
+        tvDate = (TextView) findViewById(R.id.entryDate);
+        tvDate.setText(getCurrDate());
     }
 
     /*@OnTouch(R.id.etName)
@@ -60,12 +66,13 @@ public class CreateEntryActivity extends BaseActivity {
         }
 
         // pushes drinks to database of current date (MM dd yyyy format)
-        String key = FirebaseDatabase.getInstance().getReference().
-                child(getCurrDate()).push().getKey();
         Drink d = new Drink(etName.getText().toString(), etDescrp.getText().toString());
-        FirebaseDatabase.getInstance().getReference().
-                child(getCurrDate()).child(key).setValue(d);
-        Log.d("TAG_FIREBASE", "Drink successfully added to: " + getCurrDate());
+        // get list index of added drink
+        String drinkId = FirebaseDatabase.getInstance().getReference().
+                child("users").child(getUid()).child("today").push().getKey();
+        FirebaseDatabase.getInstance().getReference().child("users").child(getUid()).
+                child("today").child(drinkId).setValue(d);
+        Log.d("TAG_FIREBASE", "Drink successfully added to: " + getUid());
 
         finish();
     }

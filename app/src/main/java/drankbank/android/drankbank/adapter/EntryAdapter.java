@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import drankbank.android.drankbank.BaseActivity;
+import drankbank.android.drankbank.MainActivity;
 import drankbank.android.drankbank.R;
 import drankbank.android.drankbank.data.Drink;
 import drankbank.android.drankbank.data.Entry;
@@ -30,6 +31,7 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     Creates view for a single drink display
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
         private TextView tvName;
         private TextView tvDescrp;
 
@@ -41,7 +43,8 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     }
 
     private List<Drink> entryList;
-    private DatabaseReference drinksRef;
+    private List<String> entryKeys;
+    private DatabaseReference entryRef;
     private Context context;
     private int lastPosition = -1;
     private String currDate;
@@ -49,17 +52,19 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_entry, parent, false);
+                .inflate(R.layout.row_search, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
     public EntryAdapter(Context context, String currDate) {
-        this.entryList = new ArrayList<Drink>();
         this.context = context;
         this.currDate = currDate;
+        this.entryList = new ArrayList<Drink>();
+        this.entryKeys = new ArrayList<String>();
 
-        drinksRef = FirebaseDatabase.getInstance().getReference(currDate);
+        String path = "users/" + ((MainActivity)context).getUid();
+        entryRef = FirebaseDatabase.getInstance().getReference(path);
     }
 
     @Override
@@ -67,7 +72,7 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
         holder.tvName.setText(entryList.get(position).getName());
         holder.tvDescrp.setText(entryList.get(position).getType());
 
-        setAnimation(holder.itemView, position);
+        //setAnimation(holder.itemView, position);
     }
 
     @Override
@@ -81,15 +86,17 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     public void removeEntry(int position) {
         // remove it from the list
         entryList.remove(position);
-        notifyDataSetChanged();
+        entryRef.child("today").child(entryKeys.get(position)).removeValue();
+        notifyItemRemoved(position);
     }
 
     /*
     Adds entry to display list
     */
-    public void addEntry(Drink d) {
-        entryList.add(d);
-        notifyDataSetChanged();
+    public void addEntry(Drink d, String key) {
+        entryList.add(0, d);
+        entryKeys.add(0, key);
+        notifyItemInserted(0);
     }
 
     private void setAnimation(View viewToAnimate, int position) {

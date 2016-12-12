@@ -28,12 +28,12 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvName;
-        private TextView tvDescrp;
+        private TextView tvType;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.tvName);
-            tvDescrp = (TextView) itemView.findViewById(R.id.tvDescrp);
+            tvType = (TextView) itemView.findViewById(R.id.tvType);
 
         }
     }
@@ -64,7 +64,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tvName.setText(favoriteList.get(position).getName());
-        holder.tvDescrp.setText(favoriteList.get(position).getType());
+        holder.tvType.setText(favoriteList.get(position).getType());
     }
 
     @Override

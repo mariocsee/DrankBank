@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.google.firebase.database.FirebaseDatabase;
@@ -39,6 +40,7 @@ public class CreateEntryActivity extends AppCompatActivity {
     boolean startSearch() {
         Intent intentShowSearch = new Intent();
         intentShowSearch.setClass(this, SearchActivity.class);
+        intentShowSearch.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivityForResult(intentShowSearch, REQUEST_DRINK);
         return true;
     }
@@ -88,10 +90,12 @@ public class CreateEntryActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (resultCode) {
             case REQUEST_DRINK:
+                Log.d("TAG_ADD", "Detected drink result");
                 if (requestCode == RESULT_OK) {
                     //get drink info
                     Bundle b = getIntent().getExtras();
                     Drink d = (Drink) b.getSerializable(SearchActivity.KEY_ADD_DRINK);
+                    Log.d("TAG_ADD", "Getting drink info for " + d.getName());
                     etName.setText(d.getName());
                     etDescrp.setText(d.getDescrp());
                 } else {

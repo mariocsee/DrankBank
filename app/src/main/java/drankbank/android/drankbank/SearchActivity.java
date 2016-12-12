@@ -135,12 +135,18 @@ public class SearchActivity extends BaseActivity {
     public void handleDrinkClick(int position) {
         Drink d = searchAdapter.getDrink(position);
         if (getCallingActivity() != null) {
-            //
+            // Check if called by add entry
             if (getCallingActivity().getClassName().equals(CreateEntryActivity.class.getName())) {
+                Log.d("TAG_ENTRY", "Adding drink: " + d.getName() + " to "
+                        + getCallingActivity().getClassName());
                 Intent intentAdd = new Intent();
+                intentAdd.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intentAdd.putExtra(KEY_ADD_DRINK, d);
                 setResult(RESULT_OK, intentAdd);
+                Log.d("TAG_ENTRY", "RESULT OK");
                 finish();
+                //onDestroy();
+
             }
         } else {
             // if activity not started by entry, then show drink details

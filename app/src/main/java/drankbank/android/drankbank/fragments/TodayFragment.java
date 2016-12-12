@@ -36,24 +36,37 @@ public class TodayFragment extends Fragment {
     private TextView tvDrinkCount;
 
     private EntryAdapter entryAdapter;
+    private LinearLayoutManager layoutManager;
     private String curDate;
     private RecyclerView recyclerEntry;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        curDate = ((MainActivity) getContext()).getCurrDate();
+        entryAdapter = new EntryAdapter(getActivity(), curDate);
+
+        layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setRecycleChildrenOnDetach(true);
+        layoutManager.setStackFromEnd(true);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rv = inflater.inflate(R.layout.content_today, null);
-        curDate = ((MainActivity) getContext()).getCurrDate();
-
-        tvDate = (TextView) rv.findViewById(R.id.todayDate);
-        tvDate.setText(curDate);
-        tvDrinkCount = (TextView) rv.findViewById(R.id.todayDrinkCount);
-        tvDrinkCount.setText(R.string.drink_count_initial);
 
         // initiate holder for today's drinks
         entryAdapter = new EntryAdapter(getContext(), curDate);
         recyclerEntry = (RecyclerView) rv.findViewById(R.id.todayDrinkList);
         setUpRecycler();
+
+        tvDate = (TextView) rv.findViewById(R.id.todayDate);
+        tvDate.setText(curDate);
+        tvDrinkCount = (TextView) rv.findViewById(R.id.todayDrinkCount);
+        tvDrinkCount.setText(R.string.drink_count_initial);
 
         initEntryListener();
 

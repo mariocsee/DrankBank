@@ -6,8 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,6 +19,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.OnTouch;
 import drankbank.android.drankbank.data.Drink;
+import drankbank.android.drankbank.data.Entry;
 
 /**
  * Created by Veronica on 11/21/16.
@@ -51,10 +56,13 @@ public class CreateEntryActivity extends AppCompatActivity {
             return;
         }
 
+//        Entry testEntry = new Entry("Heineken", new Date(), "100", "This is beer");
 
-        /*String key = FirebaseDatabase.getInstance().getReference().child("posts").push().getKey();
-        Entry newPost = new Entry(get(), getUserName(), etTitle.getText().toString(),
-                etBody.getText().toString());
+        /*
+        String key = FirebaseDatabase.getInstance().getReference().child("posts").push().getKey();
+        Entry newEntry = new Entry(getAlcohol(), getDate(), getRating(),
+//                etTitle.getText().toString(),
+                getBody());
 
         FirebaseDatabase.getInstance().getReference().child(key).setValue(newPost);
 

@@ -10,12 +10,16 @@ import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import butterknife.OnTouch;
 import drankbank.android.drankbank.data.Drink;
+import drankbank.android.drankbank.data.Entry;
 
 /**
  * Created by Veronica on 11/21/16.

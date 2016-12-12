@@ -44,10 +44,10 @@
                 <!--1-->
                 <include layout="@layout/content_main" />
                 <!--2-->
-                <include layout="@layout/content_search" />
-                <!--3-->
+                <!--<include layout="@layout/content_search" />-->
+                <!--2-->
                 <include layout="@layout/content_calendar" />
-                <!--4-->
+                <!--3-->
                 <include layout="@layout/content_main" />
 
             </ViewFlipper>

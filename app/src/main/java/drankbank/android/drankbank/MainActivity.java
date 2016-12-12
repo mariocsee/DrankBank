@@ -16,10 +16,12 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +33,25 @@ import drankbank.android.drankbank.touch.EntryListTouchHelper;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private View hView;
+    private Toolbar toolbar;
+    private BottomNavigationView bottomNavigationView;
+    private RecyclerView recyclerEntry;
     private EntryAdapter entryAdapter;
     private ViewFlipper viewFlipper;
     private CalendarView calendarView;
+    private TextView tvEmail;
+    private TextView tvUserName;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        setUpUI();
 
         // switching views
         viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
@@ -51,7 +64,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        setUpUI();
     }
 
     private void setUpUI() {
@@ -73,9 +85,18 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setUpDrawer() {
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        
+        hView = navigationView.getHeaderView(0);
+
+        tvEmail = (TextView) hView.findViewById(R.id.tvEmail);
+        tvUserName = (TextView) hView.findViewById(R.id.tvUserName);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        tvUserName.setText(user.getDisplayName());
+        tvEmail.setText(user.getEmail());
 
     }
 
@@ -83,8 +104,8 @@ public class MainActivity extends AppCompatActivity
     Set up toolbar with clickable icon to open drawer
      */
     private void setUpToolBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.common_ic_googleplayservices);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_menu);
         toolbar.setTitle("Drank Bank");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -98,7 +119,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setUpBottomNav() {
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -113,17 +134,16 @@ public class MainActivity extends AppCompatActivity
                         Toast.makeText(MainActivity.this, "CARD VIEW", Toast.LENGTH_SHORT).show();
                         viewFlipper.setDisplayedChild(1);
                         return true;
-                    case R.id.action_search_view:
-                        Toast.makeText(MainActivity.this, "SEARCH VIEW", Toast.LENGTH_SHORT).show();
-                        viewFlipper.setDisplayedChild(2);
-                        return true;
+//                    case R.id.action_search_view:
+//                        Toast.makeText(MainActivity.this, "SEARCH VIEW", Toast.LENGTH_SHORT).show();
+//                        return true;
                     case R.id.action_calendar_view:
                         Toast.makeText(MainActivity.this, "CALENDAR VIEW", Toast.LENGTH_SHORT).show();
-                        viewFlipper.setDisplayedChild(3);
+                        viewFlipper.setDisplayedChild(2);
                         return true;
                     case R.id.action_graph_view:
                         Toast.makeText(MainActivity.this, "GRAPH VIEW", Toast.LENGTH_SHORT).show();
-                        viewFlipper.setDisplayedChild(4);
+                        viewFlipper.setDisplayedChild(3);
                         return true;
                 }
                 return false;
@@ -138,7 +158,7 @@ public class MainActivity extends AppCompatActivity
 
         entryAdapter = new EntryAdapter(Context context, this);
 
-        RecyclerView recyclerEntry = (RecyclerView) findViewById(
+        recyclerEntry = (RecyclerView) findViewById(
                 R.id.recyclerEntry);
         recyclerEntry.setLayoutManager(new LinearLayoutManager(this));
         recyclerEntry.setAdapter(entryAdapter);
@@ -155,9 +175,8 @@ public class MainActivity extends AppCompatActivity
      */
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
@@ -193,9 +212,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_favorites:
                 break;
-            case R.id.nav_settings:
-                break;
-            case R.id.nav_share:
+//            case R.id.nav_settings:
+//                break;
+            case R.id.nav_search:
                 startActivity(new Intent(this, SearchActivity.class));
                 break;
             case R.id.nav_logout:

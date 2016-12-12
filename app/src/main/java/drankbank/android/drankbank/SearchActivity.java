@@ -146,7 +146,6 @@ public class SearchActivity extends BaseActivity {
                 Log.d("TAG_ENTRY", "RESULT OK");
                 finish();
                 //onDestroy();
-
             }
         } else {
             // if activity not started by entry, then show drink details

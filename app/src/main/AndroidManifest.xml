@@ -27,20 +27,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".CreateEntryActivity"
             android:label="Add a drink"
             android:screenOrientation="portrait"
-            android:theme="@style/createDialog" />
+            android:theme="@style/createDialog"  />
+
         <activity android:name=".TodayActivity"
             android:label="Today Activity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".SearchActivity"
             android:label="Search"
@@ -54,6 +58,7 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/config_search" />
         </activity>
+
         <activity
             android:name=".ShowDrinkActivity"
             android:label="Show Drink"

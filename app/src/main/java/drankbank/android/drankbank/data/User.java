@@ -13,6 +13,7 @@ public class User {
     private String username;
     private String email;
     private List<Drink> favDrinks;
+    private List<Drink> todayDrinks;
 
     public User(){
     }
@@ -21,6 +22,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.favDrinks = new ArrayList<Drink>();
+        this.todayDrinks = new ArrayList<Drink>();
     }
 
     public String getUsername() {
@@ -45,5 +47,13 @@ public class User {
 
     public void setFavDrinks(List<Drink> favDrinks) {
         this.favDrinks = favDrinks;
+    }
+
+    public List<Drink> getTodayDrinks() {
+        return todayDrinks;
+    }
+
+    public void setTodayDrinks(List<Drink> todayDrinks) {
+        this.todayDrinks = todayDrinks;
     }
 }

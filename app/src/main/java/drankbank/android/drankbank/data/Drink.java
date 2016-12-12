@@ -17,6 +17,9 @@ public class Drink implements Serializable {
     private String type;
     private String descrp;
 
+    public Drink() {
+    }
+
     public Drink(String name, String descrp) {
         this.name = name;
         this.descrp = descrp;

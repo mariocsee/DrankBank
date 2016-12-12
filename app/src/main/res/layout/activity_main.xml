@@ -32,6 +32,11 @@
                     app:popupTheme="@style/AppTheme.PopupOverlay" />
 
             </android.support.design.widget.AppBarLayout>
+            
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/main_placeholder"/>
 
             <ViewFlipper
                 android:id="@+id/viewFlipper"

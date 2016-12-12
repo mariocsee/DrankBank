@@ -61,11 +61,11 @@ public class CreateEntryActivity extends BaseActivity {
 
         // pushes drinks to database of current date (MM dd yyyy format)
         String key = FirebaseDatabase.getInstance().getReference().
-                child(getCurrDate()).push().getKey();
+                child("users").child(getUid()).push().getKey();
         Drink d = new Drink(etName.getText().toString(), etDescrp.getText().toString());
         FirebaseDatabase.getInstance().getReference().
-                child(getCurrDate()).child(key).setValue(d);
-        Log.d("TAG_FIREBASE", "Drink successfully added to: " + getCurrDate());
+                child("users").child(key).setValue(d);
+        Log.d("TAG_FIREBASE", "Drink successfully added to: " + key);
 
         finish();
     }

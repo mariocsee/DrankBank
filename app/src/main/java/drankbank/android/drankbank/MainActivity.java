@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -30,15 +31,13 @@ import drankbank.android.drankbank.adapter.EntryAdapter;
 import drankbank.android.drankbank.data.Entry;
 import drankbank.android.drankbank.touch.EntryListTouchHelper;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private View hView;
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
-    private RecyclerView recyclerEntry;
-    private EntryAdapter entryAdapter;
     private ViewFlipper viewFlipper;
     private CalendarView calendarView;
     private TextView tvEmail;
@@ -128,7 +127,10 @@ public class MainActivity extends AppCompatActivity
                 switch (item.getItemId()) {
                     case R.id.action_today_view:
                         Toast.makeText(MainActivity.this, "TODAY VIEW", Toast.LENGTH_SHORT).show();
-                        viewFlipper.setDisplayedChild(0);
+                        //viewFlipper.setDisplayedChild(0);
+                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.main_placeholder, new TodayFragment());
+                        ft.commit();
                         return true;
                     case R.id.action_card_view:
                         Toast.makeText(MainActivity.this, "CARD VIEW", Toast.LENGTH_SHORT).show();
@@ -150,25 +152,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-
-    /*
-    Set up recycler view of today's drinks
-    private void setUpRecyclerView() {
-        List<Entry> entryList = new ArrayList<>();
-
-        entryAdapter = new EntryAdapter(Context context, this);
-
-        recyclerEntry = (RecyclerView) findViewById(
-                R.id.recyclerEntry);
-        recyclerEntry.setLayoutManager(new LinearLayoutManager(this));
-        recyclerEntry.setAdapter(entryAdapter);
-
-        EntryListTouchHelper touchHelperCallback = new EntryListTouchHelper(
-                entryAdapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(
-                touchHelperCallback);
-        touchHelper.attachToRecyclerView(recyclerEntry);
-    }*/
 
     /*
     Handles when back button is pressed
@@ -205,7 +188,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
         switch (item.getItemId()) {
             case R.id.nav_list:
                 //handle camera action

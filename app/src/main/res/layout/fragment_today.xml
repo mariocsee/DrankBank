@@ -18,9 +18,17 @@
         android:id="@+id/todayDrinkCount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:text="@string/drink_count_initial"
+        android:textSize="21sp" />
+
+    <TextView
+        android:id="@+id/todayComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:textSize="21sp"
-        android:layout_marginBottom="20dp"/>
+        android:textStyle="italic" />
 
     <!-- Holds daily drinks -->
     <android.support.v7.widget.RecyclerView

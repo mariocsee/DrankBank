@@ -5,17 +5,25 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="com.orm.SugarApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name="com.orm.SugarApp">
+        android:theme="@style/AppTheme">
 
-        <meta-data android:name="DATABASE" android:value="booze.db" />
-        <meta-data android:name="VERSION" android:value="4" />
-        <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="drankbank.android.drankbank" />
+        <meta-data
+            android:name="DATABASE"
+            android:value="booze.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="4" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="drankbank.android.drankbank" />
 
         <activity
             android:name=".LoginActivity"
@@ -38,9 +46,10 @@
             android:name=".CreateEntryActivity"
             android:label="Add a drink"
             android:screenOrientation="portrait"
-            android:theme="@style/createDialog"  />
+            android:theme="@style/createDialog" />
 
-        <activity android:name=".TodayActivity"
+        <activity
+            android:name=".TodayActivity"
             android:label="Today Activity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -64,6 +73,15 @@
             android:label="Show Drink"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -26,7 +26,13 @@
 
         <activity
             android:name=".CreateEntryActivity"
-            android:label="Add a drink"
+            android:label="Add a drink today"
+            android:screenOrientation="portrait"
+            android:theme="@style/createDialog" />
+
+        <activity
+            android:name=".CreateFavoriteActivity"
+            android:label="Add a favorite drink"
             android:screenOrientation="portrait"
             android:theme="@style/createDialog" />
 

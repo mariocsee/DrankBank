@@ -2,7 +2,6 @@ package drankbank.android.drankbank;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -13,16 +12,10 @@ import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
-import butterknife.OnTouch;
 import drankbank.android.drankbank.data.Drink;
-import drankbank.android.drankbank.data.Entry;
 
 /**
  * Created by Veronica on 11/21/16.
@@ -77,6 +70,7 @@ public class CreateEntryActivity extends BaseActivity {
         // pushes drinks to database of current date (MM dd yyyy format)
         Drink d = new Drink(etName.getText().toString(), etDescrp.getText().toString());
         d.setIconAndType(spinType.getSelectedItemPosition());
+        Log.d("SPINNER_ENTRY", d.getType() + spinType.getSelectedItemPosition());
         // get list index of added drink
         String drinkId = FirebaseDatabase.getInstance().getReference().
                 child("users").child(getUid()).child("today").push().getKey();

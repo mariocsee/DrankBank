@@ -7,10 +7,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import drankbank.android.drankbank.fragments.FavoritesFragment;
 import drankbank.android.drankbank.fragments.TodayFragment;
 
 public class MainActivity extends BaseActivity
@@ -60,17 +63,6 @@ public class MainActivity extends BaseActivity
         setUpBottomNav();
         setUpDrawer();
         //setUpRecyclerView();
-        setUpFab();
-    }
-
-    private void setUpFab() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, CreateEntryActivity.class));
-            }
-        });
     }
 
     private void setUpDrawer() {
@@ -112,45 +104,50 @@ public class MainActivity extends BaseActivity
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_today_view:
-                        // prevents item from being re-clicked
-                        if (!isFragmentPresent("FRAG_TODAY")) {
-                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                            ft.replace(R.id.main_placeholder, new TodayFragment(), "FRAG_TODAY");
-                            ft.commit();
-                        }
-                        return true;
-                    case R.id.action_card_view:
-                        Toast.makeText(MainActivity.this, "CARD VIEW", Toast.LENGTH_SHORT).show();
-                        return true;
-//                    case R.id.action_search_view:
-//                        Toast.makeText(MainActivity.this, "SEARCH VIEW", Toast.LENGTH_SHORT).show();
-//                        return true;
-                    case R.id.action_calendar_view:
-                        Toast.makeText(MainActivity.this, "CALENDAR VIEW", Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.action_graph_view:
-                        Toast.makeText(MainActivity.this, "GRAPH VIEW", Toast.LENGTH_SHORT).show();
-                        return true;
-                }
-                return false;
-            }
-        });
-    }
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        Fragment fragment = null;
+                        String tag = "";
 
-    /*
-    Checks if fragment is already present
-     */
-    private boolean isFragmentPresent (String tag) {
-        Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
-        if (frag instanceof TodayFragment)  {
-            return true;
-        } else {
-            return false;
-        }
+                        switch (item.getItemId()) {
+
+                            case R.id.action_today_view:
+                                // prevents item from being re-clicked
+                                Log.d("TAG_FRAG", "TODAY");
+                                tag = TodayFragment.TAG;
+                                fragment = getSupportFragmentManager().findFragmentByTag(TodayFragment.TAG);
+
+                                if (fragment == null) {
+                                    fragment = new TodayFragment();
+                                }
+                                break;
+
+                            case R.id.action_card_view:
+                                Log.d("TAG_FRAG", "FAVS");
+                                tag = FavoritesFragment.TAG;
+                                fragment = getSupportFragmentManager().findFragmentByTag(FavoritesFragment.TAG);
+
+                                if (fragment == null) {
+                                    fragment = new FavoritesFragment();
+                                }
+
+                                break;
+
+//                    case R.id.action_search_view:
+//
+                            case R.id.action_calendar_view:
+                                return true;
+                            case R.id.action_graph_view:
+                                return true;
+                        }
+
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_placeholder, fragment, tag)
+                                .addToBackStack(null)
+                                .commit();
+                        return true;
+                    }
+                });
     }
 
     /*
@@ -190,10 +187,10 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         switch (item.getItemId()) {
 //            case R.id.nav_list:
-                //handle camera action
+            //handle camera action
 //                break;
-            case R.id.nav_favorites:
-                break;
+//            case R.id.nav_favorites:
+//                break;
 //            case R.id.nav_settings:
 //                break;
             case R.id.nav_search:

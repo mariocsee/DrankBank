@@ -1,8 +1,10 @@
 package drankbank.android.drankbank.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import drankbank.android.drankbank.CreateEntryActivity;
 import drankbank.android.drankbank.MainActivity;
 import drankbank.android.drankbank.R;
 import drankbank.android.drankbank.ShowDrinkActivity;
@@ -32,6 +35,8 @@ import drankbank.android.drankbank.data.Drink;
 public class TodayFragment extends Fragment {
     public static final String KEY_SHOW_DRINK = "KEY_SHOW_DRINK";
 
+    public static String TAG = "TodayFragment";
+
     private TextView tvDate;
     private TextView tvDrinkCount;
     private TextView tvComment;
@@ -39,6 +44,8 @@ public class TodayFragment extends Fragment {
     private EntryAdapter entryAdapter;
     private String curDate;
     private RecyclerView recyclerEntry;
+    private LinearLayoutManager layoutManager;
+    private Integer count;
 
     @Nullable
     @Override
@@ -49,6 +56,17 @@ public class TodayFragment extends Fragment {
         entryAdapter = new EntryAdapter(getContext(), curDate);
         recyclerEntry = (RecyclerView) rv.findViewById(R.id.todayDrinkList);
         setUpRecycler();
+        initEntryListener();
+
+        FloatingActionButton fab = (FloatingActionButton) rv.findViewById(R.id.fabAddDrinkToday);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), CreateEntryActivity.class));
+            }
+        });
+
+        count = entryAdapter.getItemCount();
 
         tvComment = (TextView) rv.findViewById(R.id.todayComment);
         tvDate = (TextView) rv.findViewById(R.id.todayDate);
@@ -56,12 +74,11 @@ public class TodayFragment extends Fragment {
         tvDrinkCount = (TextView) rv.findViewById(R.id.todayDrinkCount);
         tvDrinkCount.setText(R.string.drink_count_initial);
 
-        initEntryListener();
         return rv;
     }
 
     private void setUpRecycler() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager = new LinearLayoutManager(getContext());
         // most recent drink at top of stack
         layoutManager.setRecycleChildrenOnDetach(true);
         layoutManager.getChildAt(0);
@@ -112,7 +129,6 @@ public class TodayFragment extends Fragment {
                 // updates number of drinks
                 updateDrinkNum(entryAdapter.getItemCount());
             }
-
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 

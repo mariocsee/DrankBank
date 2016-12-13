@@ -22,6 +22,20 @@
     <string name="not_available">Not available</string>
     <string name="splash">This is Drank Bank</string>
     <string name="drink_count_one">You\'ve had 1 drink today.</string>
+    <string name="drawer_search">Search</string>
+    <string name="user">User</string>
+    <string name="log_out">Log Out</string>
+    <string name="today">Today</string>
+    <string name="favorites">Favorites</string>
+    <string name="calendar">Calendar</string>
+    <string name="graph">Graph</string>
+    <string name="search">Search</string>
+    <string name="password">Password</string>
+    <string name="email">email</string>
+    <string name="mario_email">msee@wesleyan.edu</string>
+    <string name="mario_password">diduseemario</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
     <string-array name="type_array">
         <item>Beer</item>
         <item>Wine</item>

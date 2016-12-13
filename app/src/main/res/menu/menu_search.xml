@@ -9,7 +9,7 @@
         android:id="@+id/svMenu"
         android:actionViewClass="android.widget.SearchView"
         android:iconifiedByDefault="false"
-        android:title="Search"
+        android:title="@string/search"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
 </menu>

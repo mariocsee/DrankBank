@@ -22,10 +22,10 @@ import drankbank.android.drankbank.data.Drink;
  */
 
 public class CreateEntryActivity extends BaseActivity {
-    @BindView(R.id.etEntryName)
-    EditText etEntryName;
-    @BindView (R.id.etEntryDescrp)
-    EditText etEntryDescrp;
+    @BindView(R.id.etName)
+    EditText etName;
+    @BindView (R.id.etDescrp)
+    EditText etDescrp;
 
     private TextView tvDate;
     private Spinner spinType;
@@ -62,13 +62,15 @@ public class CreateEntryActivity extends BaseActivity {
     /*
     Adds drink to firebase user's database
      */
-    @OnClick(R.id.btnAddEntry)
+    @OnClick(R.id.btnAdd)
     void sendClick() {
         if (!isEntryValid()) {
             return;
         }
         // pushes drinks to database of current date (MM dd yyyy format)
-        Drink d = new Drink(etEntryName.getText().toString(), etEntryDescrp.getText().toString());
+        Drink d = new Drink(etName.getText().toString(), etDescrp.getText().toString());
+        d.setIconAndType(spinType.getSelectedItemPosition());
+        Log.d("SPINNER_ENTRY", d.getType() + spinType.getSelectedItemPosition());
         // get list index of added drink
         String drinkId = FirebaseDatabase.getInstance().getReference().
                 child("users").child(getUid()).child("today").push().getKey();
@@ -86,18 +88,18 @@ public class CreateEntryActivity extends BaseActivity {
 
     private boolean isEntryValid() {
         boolean result = true;
-        if (TextUtils.isEmpty(etEntryName.getText().toString())) {
-            etEntryName.setError("Required");
+        if (TextUtils.isEmpty(etName.getText().toString())) {
+            etName.setError("Required");
             result = false;
         } else {
-            etEntryName.setError(null);
+            etName.setError(null);
         }
 
-        if (TextUtils.isEmpty(etEntryDescrp.getText().toString())) {
-            etEntryDescrp.setError("Required");
+        if (TextUtils.isEmpty(etDescrp.getText().toString())) {
+            etDescrp.setError("Required");
             result = false;
         } else {
-            etEntryDescrp.setError(null);
+            etDescrp.setError(null);
         }
         return result;
     }
@@ -116,8 +118,8 @@ public class CreateEntryActivity extends BaseActivity {
                     Bundle b = getIntent().getExtras();
                     Drink d = (Drink) b.getSerializable(SearchActivity.KEY_ADD_DRINK);
                     Log.d("TAG_ADD", "Getting drink info for " + d.getName());
-                    etEntryName.setText(d.getName());
-                    etEntryDescrp.setText(d.getDescrp());
+                    etName.setText(d.getName());
+                    etDescrp.setText(d.getDescrp());
                 } else {
                     Toast.makeText(this, "Unable to add result", Toast.LENGTH_LONG).show();
                 }

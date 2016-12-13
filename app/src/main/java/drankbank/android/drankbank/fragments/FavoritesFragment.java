@@ -34,6 +34,8 @@ import drankbank.android.drankbank.data.Drink;
 
 public class FavoritesFragment extends Fragment {
 
+    public static String TAG = "FavoritesFragment";
+
     private FavoritesAdapter favoritesAdapter;
     private RecyclerView recyclerFavorites;
     private LinearLayoutManager layoutManager;

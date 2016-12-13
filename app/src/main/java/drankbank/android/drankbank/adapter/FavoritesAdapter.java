@@ -1,12 +1,14 @@
 package drankbank.android.drankbank.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -17,7 +19,9 @@ import java.util.List;
 
 import drankbank.android.drankbank.MainActivity;
 import drankbank.android.drankbank.R;
+import drankbank.android.drankbank.ShowDrinkActivity;
 import drankbank.android.drankbank.data.Drink;
+import drankbank.android.drankbank.fragments.TodayFragment;
 
 /**
  * Created by mariocsee on 12/12/16.
@@ -29,11 +33,14 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
 
         private TextView tvName;
         private TextView tvType;
+        private ImageView imgDrink;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.tvName);
             tvType = (TextView) itemView.findViewById(R.id.tvType);
+            imgDrink = (ImageView) itemView.findViewById(R.id.ivDrink);
 
         }
     }
@@ -62,9 +69,21 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvName.setText(favoriteList.get(position).getName());
         holder.tvType.setText(favoriteList.get(position).getType());
+        holder.imgDrink.setImageResource(favoriteList.get(position).getIcon());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Drink d = favoriteList.get(position);
+                Intent intentShow = new Intent(context, ShowDrinkActivity.class);
+                intentShow.putExtra(TodayFragment.KEY_SHOW_DRINK, d);
+                intentShow.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(intentShow);
+            }
+        });
     }
 
     @Override

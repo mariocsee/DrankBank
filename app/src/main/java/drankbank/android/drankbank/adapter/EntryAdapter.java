@@ -126,8 +126,4 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
             lastPosition = position;
         }
     }
-
-    public Drink getEntry(int position) {
-        return entryList.get(position);
-    }
 }

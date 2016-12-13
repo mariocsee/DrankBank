@@ -5,28 +5,28 @@
         <!-- color: 010101-->
         <item
             android:id="@+id/nav_search"
-            android:icon="@drawable/beer"
-            android:title="Search" />
+            android:icon="@drawable/ic_action_search"
+            android:title="@string/drawer_search" />
         <!--<item-->
             <!--android:id="@+id/nav_settings"-->
             <!--android:icon="@drawable/ic_menu_manage"-->
             <!--android:title="@string/nav_settings" />-->
     </group>
 
-    <item android:title="User">
+    <item android:title="@string/user">
         <menu>
             <!--<item-->
                 <!--android:id="@+id/nav_list"-->
                 <!--android:icon="@drawable/ic_menu_list"-->
                 <!--android:title="@string/nav_lists" />-->
-            <item
-                android:id="@+id/nav_favorites"
-                android:icon="@drawable/ic_menu_favorites"
-                android:title="@string/nav_favorites" />
+            <!--<item-->
+                <!--android:id="@+id/nav_favorites"-->
+                <!--android:icon="@drawable/ic_menu_favorites"-->
+                <!--android:title="@string/nav_favorites" />-->
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_exit_to_app"
-                android:title="Log Out" />
+                android:title="@string/log_out" />
         </menu>
     </item>
 

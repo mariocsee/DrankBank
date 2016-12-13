@@ -35,6 +35,8 @@ import drankbank.android.drankbank.data.Drink;
 public class TodayFragment extends Fragment {
     public static final String KEY_SHOW_DRINK = "KEY_SHOW_DRINK";
 
+    public static String TAG = "TodayFragment";
+
     private TextView tvDate;
     private TextView tvDrinkCount;
     private TextView tvComment;
@@ -153,7 +155,7 @@ public class TodayFragment extends Fragment {
     Updates drink number and comment
      */
     private void updateDrinkNum(int count) {
-        tvDrinkCount.setText(getString(R.string.drink_count));
+        tvDrinkCount.setText(getString(R.string.drink_count, count));
         if (count == 0) {
             tvComment.setText(getString(R.string.drink_count_initial));
         } else if (count <= 3) {

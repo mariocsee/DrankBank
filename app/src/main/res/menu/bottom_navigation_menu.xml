@@ -6,14 +6,14 @@
         android:enabled="true"
         android:icon="@drawable/ic_today"
         android:showAsAction="ifRoom"
-        android:title="Today" />
+        android:title="@string/today" />
 
     <item
         android:id="@+id/action_card_view"
         android:enabled="true"
         android:icon="@drawable/ic_local_bar"
         android:showAsAction="ifRoom"
-        android:title="Favorites" />
+        android:title="@string/favorites" />
 
     <!--<item-->
         <!--android:id="@+id/action_search_view"-->
@@ -27,13 +27,13 @@
         android:enabled="true"
         android:icon="@drawable/ic_action_calendar_month"
         android:showAsAction="ifRoom"
-        android:title="Calendar" />
+        android:title="@string/calendar" />
 
     <item
         android:id="@+id/action_graph_view"
         android:enabled="true"
         android:icon="@drawable/ic_action_bargraph"
         android:showAsAction="ifRoom"
-        android:title="Graph" />
+        android:title="@string/graph" />
 
 </menu>

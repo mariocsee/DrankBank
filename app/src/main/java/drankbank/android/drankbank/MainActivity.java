@@ -36,7 +36,6 @@ public class MainActivity extends BaseActivity
     private TextView tvEmail;
     private TextView tvUserName;
     private FirebaseUser user;
-    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,73 +104,50 @@ public class MainActivity extends BaseActivity
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null;
-                Class fragmentClass = null;
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        Fragment fragment = null;
+                        String tag = "";
 
-                switch (item.getItemId()) {
-                    case R.id.action_today_view:
-                        // prevents item from being re-clicked
-                        Log.d("TAG_FRAG", "TODAY");
-                        fragmentClass = TodayFragment.class;
-                        if (!isFragmentPresent("FRAG_TODAY")) {
-        /*                    try {
-                                fragment = (Fragment) fragmentClass.newInstance();
-                            } catch (InstantiationException e) {
-                                e.printStackTrace();
-                            } catch (IllegalAccessException e) {
-                                e.printStackTrace();
-                            }*/
-/*
-                            fragmentManager = getSupportFragmentManager();
-*/
-                        }
-                        break;
-                    case R.id.action_card_view:
-                        Log.d("TAG_FRAG", "FAVS");
-                        fragmentClass = FavoritesFragment.class;
-                        if (!isFragmentPresent("FRAG_FAVORITES")) {
-/*                            fragmentManager.beginTransaction()
-                                    .replace(R.id.main_placeholder, new FavoritesFragment(), "FRAG_FAVORITES")
-                                    .commit();*/
-                        }
-                        break;
+                        switch (item.getItemId()) {
+
+                            case R.id.action_today_view:
+                                // prevents item from being re-clicked
+                                Log.d("TAG_FRAG", "TODAY");
+                                tag = TodayFragment.TAG;
+                                fragment = getSupportFragmentManager().findFragmentByTag(TodayFragment.TAG);
+
+                                if (fragment == null) {
+                                    fragment = new TodayFragment();
+                                }
+                                break;
+
+                            case R.id.action_card_view:
+                                Log.d("TAG_FRAG", "FAVS");
+                                tag = FavoritesFragment.TAG;
+                                fragment = getSupportFragmentManager().findFragmentByTag(FavoritesFragment.TAG);
+
+                                if (fragment == null) {
+                                    fragment = new FavoritesFragment();
+                                }
+
+                                break;
+
 //                    case R.id.action_search_view:
-//                        Toast.makeText(MainActivity.this, "SEARCH VIEW", Toast.LENGTH_SHORT).show();
-//                        return true;
-                    case R.id.action_calendar_view:
-                        Toast.makeText(MainActivity.this, "CALENDAR VIEW", Toast.LENGTH_SHORT).show();
-                    case R.id.action_graph_view:
-                        Toast.makeText(MainActivity.this, "GRAPH VIEW", Toast.LENGTH_SHORT).show();
-                }
-                try {
-                    fragment = (Fragment) fragmentClass.newInstance();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.main_placeholder, fragment)
-                        .commit();
-                return true;
-            }
-        });
-    }
+//
+                            case R.id.action_calendar_view:
+                                return true;
+                            case R.id.action_graph_view:
+                                return true;
+                        }
 
-    /*
-    Checks if fragment is already present
-     */
-    private boolean isFragmentPresent (String tag) {
-        Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
-        if (frag instanceof TodayFragment
-                || frag instanceof FavoritesFragment)  {
-            return true;
-        } else {
-            return false;
-        }
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.main_placeholder, fragment, tag)
+                                .addToBackStack(null)
+                                .commit();
+                        return true;
+                    }
+                });
     }
 
     /*
@@ -211,11 +187,10 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         switch (item.getItemId()) {
 //            case R.id.nav_list:
-                //handle camera action
+            //handle camera action
 //                break;
-            case R.id.nav_favorites:
-
-                break;
+//            case R.id.nav_favorites:
+//                break;
 //            case R.id.nav_settings:
 //                break;
             case R.id.nav_search:

@@ -22,7 +22,8 @@
             android:layout_centerVertical="true"
             android:layout_margin="10dp"
             android:scaleType="fitXY"
-            android:src="@drawable/misc_drinks" />
+            android:src="@drawable/misc_drinks"
+            />
 
         <TextView
             android:id="@+id/tvName"

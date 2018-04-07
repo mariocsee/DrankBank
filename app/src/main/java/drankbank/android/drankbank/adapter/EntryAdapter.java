@@ -77,7 +77,13 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvName.setText(entryList.get(position).getName());
         holder.tvType.setText(entryList.get(position).getType());
-        holder.imgDrink.setImageResource(entryList.get(position).getIcon());
+        holder
+                .imgDrink
+                .setImageResource(
+                        entryList
+                                .get(position)
+                                .getIcon()
+                );
 
         // click on a row will start a new activity that displays info on it
         holder.itemView.setOnClickListener(new View.OnClickListener() {
